@@ -1,0 +1,182 @@
+<p-toast></p-toast>
+<div class="pt-4">
+    <h2 class="p-m-0">Autorisation List </h2>
+    <div class="card">
+
+    <p-toolbar  styleClass="p-mb-4" class="pt-4">
+        <!--  -->
+        <ng-template pTemplate="left">
+          <div >
+            <button  pButton pRipple label="Ajout" icon="pi pi-plus"  style="float:right" class="p-button-danger p-mr-2" [disabled]="for.invalid" (click)="openNew()"></button>
+          </div>
+          </ng-template>
+        <ng-template pTemplate="right">
+         <!--   <form [formGroup]="for" #data="ngForm" role="form">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <select formControlName="nomComplet" class="form-control">
+                        <label>nomComplet</label>
+                        <option selected value="" disabled>Choisir nomComplet</option>
+                        <option *ngFor="let x of autorisations" [value]="x.nomComplet">{{x.nomComplet}}</option>
+                      </select>
+                        </div>
+                        <div class="col">
+                          <select formControlName="dateSortie" class="form-control">
+                      <label>dateSortie</label>
+                      <option selected value="" disabled>Choisir dateSortie</option>
+                      <option *ngFor="let x of autorisations" [value]="x.nomComplet">{{x.dateSortie}}</option>
+                    </select>
+                      </div>
+                      <div class="col">
+                        <select formControlName="heureSortie" class="form-control">
+                    <label>heureSortie</label>
+                    <option selected value="" disabled>Choisir heureSortie</option>
+                    <option *ngFor="let x of autorisations" [value]="x.heureSortie">{{x.heureSortie}}</option>
+                  </select>
+                    </div>
+
+                    <div class="col">
+                      <select formControlName="heureRetour" class="form-control">
+                  <label>heureRetour</label>
+                  <option selected value="" disabled>Choisir heureSortie</option>
+                  <option *ngFor="let x of autorisations" [value]="x.heureRetour">{{x.heureRetour}}</option>
+                </select>
+                  </div>
+
+                  <div class="col">
+                    <select formControlName="raison" class="form-control">
+                <label>raison</label>
+                <option selected value="" disabled>Choisir raison</option>
+                <option *ngFor="let x of autorisations" [value]="x.raison">{{x.raison}}</option>
+              </select>
+                </div>
+
+                <div class="col">
+                  <select formControlName="destination" class="form-control">
+              <label>destination</label>
+              <option selected value="" disabled>Choisir destination</option>
+              <option *ngFor="let x of autorisations" [value]="x.raison">{{x.destination}}</option>
+            </select>
+              </div>
+           
+              <div class="col">
+                <select formControlName="validateur" class="form-control">
+            <label>validateur</label>
+            <option selected value="" disabled>Choisir validateur</option>
+            <option *ngFor="let x of autorisations" [value]="x.raison">{{x.validateur}}</option>
+          </select>
+            </div>
+                     
+                        <button type="submit" (click)="go(data.value)" [disabled]="for.invalid" class="btn btn-info ml-1">Rechercher</button>
+
+                    </div>
+                </div>
+            </form>-->
+            
+            
+          <!-- <select class="form-control mr-1">
+                <option selected disabled>Choisir nomComplet</option>
+                <option *ngFor="let x of autorisations" [value]="x.nomComplet">{{x.nomComplet}}</option>
+              </select>
+           <select class="form-control  mr-1">
+                <option>Choisir dateSortie</option>
+              </select>
+            <select class="form-control mr-1">
+                <option>Choisir Type</option>
+              </select>
+            <select class="form-control mr-1">
+                <option>Choisir Anneé</option>
+              </select> -->
+
+
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="tabs" [rows]="10" [paginator]="true" [globalFilterFields]="['nomComplet','dateSortie','heureSortie','heureRetour','raison','destination','motif','validateur','etat']" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between ">
+                <span class="p-input-icon-left ">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." />
+                </span>
+            </div>
+        </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+
+           
+          <th pSortableColumn="dateSortie">dateSortie
+            <p-sortIcon field="dateSortie"></p-sortIcon>
+        </th>
+        <th pSortableColumn="heureSortie">heureSortie
+          <p-sortIcon field="heureSortie"></p-sortIcon>
+      </th>
+      <th pSortableColumn="heureRetour">heureRetour
+        <p-sortIcon field="heureRetour"></p-sortIcon>
+    </th>
+
+<th pSortableColumn="validateur">validateur
+<p-sortIcon field="validateur"></p-sortIcon>
+</th>
+<th pSortableColumn="etat">etat
+<p-sortIcon field="etat"></p-sortIcon>
+</th>
+<th>
+  <i class="pi pi-angle-double-down" style="font-size: 2rem"></i>
+
+</th>
+           </tr> 
+        </ng-template> 
+        <ng-template pTemplate="body" let-auto>
+            <tr>
+              <td>{{auto.dateSortie}}</td>
+              <td>{{auto.heureSortie}}</td>
+              <td>{{auto.heureRetour}}</td>
+            
+              <td>{{auto.validateur}}</td>
+              <td>{{auto.etat}}</td>
+            <td>
+
+              <button pButton pRipple (click)="showDialog()" icon="pi pi-plus" class="p-button-danger p-mr-2" label="Show"></button>
+
+              <p-dialog  header="Title" [style]="{width: '600px'}" [(visible)]="display">
+                <p-accordion>
+                  <p-accordionTab header="Nom et prenom">
+                    {{auto.nomComplet}}
+                  </p-accordionTab>
+                  <p-accordionTab header="Raison">
+                    {{auto.raison}}
+                  </p-accordionTab>
+                  <p-accordionTab header="Destination">
+                    {{auto.destination}}    
+                  </p-accordionTab>
+                  <p-accordionTab header="Motif">
+                    {{auto.motif}}   
+                </p-accordionTab>
+              </p-accordion>
+              
+            </p-dialog>
+          </td>
+   
+   
+
+
+               
+              
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Au total, il y a {{tabs ? tabs.length : 0 }} des autorisations.
+            </div>
+        </ng-template>
+    </p-table>
+    <p-dialog [(visible)]="ajoutInf" [style]="{width: '650px'}" header="Ajout Autorisation" [modal]="true" styleClass="p-fluid"  >
+
+        <app-ajouter *ngIf="ajoutInf==true" [form]=" for">
+        </app-ajouter>
+    </p-dialog >
+
+
+</div>

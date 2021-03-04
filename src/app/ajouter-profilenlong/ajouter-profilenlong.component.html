@@ -1,0 +1,83 @@
+<div class="container" >
+    <form [formGroup]="ajoutinf" #ajc="ngForm">
+    
+        <div class="p-fluid p-formgrid p-grid">
+    
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Canals</label>
+            <br>
+        <select formControlName="canals"  (change)="selected()"
+        placeholder="Canals..." type="text" class="form-control">
+        <option *ngFor="let cat of categories" [value]="cat.value"  >
+          {{cat.viewValue}}
+        </option>
+      </select>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label for="bday">Nœud Amont</label>
+            <br>
+            <input class="form-control" type="text" formControlName="namont" class="form-control">
+    
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label for="bday">Nœud Aval</label>
+            <br>
+            <input class="form-control" type="text" formControlName="naval" class="form-control">
+    
+          </div>
+    
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Hauteur de chute(m)</label>
+            <br>
+            <input formControlName="hauteurchute" placeholder="hauteurchute..." type="number" pInputText class="form-control">
+          </div>
+    
+    
+    
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Nombre de chute(m)</label>
+            <br>
+            <input formControlName="nombredechute" placeholder="nombredechute..." type="number" pInputText class="form-control">
+          </div>
+    
+    
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">chute(m)</label>
+            <br>
+            <input formControlName="chute" placeholder="chute..." type="number" pInputText class="form-control">
+    
+          </div>
+    
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Longueur(m)</label>
+            <br>
+            <input formControlName="longueur" placeholder="longueur..." type="number" pInputText class="form-control">
+    
+          </div>
+    
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Cote tn amont(m)</label>
+            <br>
+            <input formControlName="cotetnamont" placeholder="cotetnamont..." type="number" pInputText class="form-control">
+    
+          </div>
+    
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">cote tn aval(m)</label>
+            <br>
+            <input formControlName="cotetnaval" placeholder="cotetnaval..." type="number" pInputText class="form-control">
+    
+          </div>
+
+    
+         
+        </div>
+        <div style="margin-left: 40%;">
+            <button class="btn btn-danger" iconPos="p-ai-center" (click)="add(ajc.value)" [disabled]="ajoutinf.invalid" color="warn">Valider</button>
+          </div> 
+    
+    
+      </form>
+    </div>
+      
+    

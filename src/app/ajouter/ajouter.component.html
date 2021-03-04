@@ -1,0 +1,84 @@
+<div >
+  <!--<div [hidden]="submitted" style="width: 400px;">-->
+    <form [formGroup]="ajoutinf" #ajc="ngForm" >
+
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+        <label for="firstname6">nomComplet</label>
+        <br>
+        <input formControlName="nomComplet" placeholder="nomComplet..." type="text" class="form-control">
+      </div>
+
+      <div *ngIf="nomComplet.invalid && (nomComplet.dirty || nomComplet.touched )" class="alert alert-danger"
+        role="alert">
+        <div *ngIf="nomComplet.errors.required">
+          nomComplet <b>obligatoire</b>
+        </div>
+      </div>
+
+      <div>
+        <label for="bday">Date de Sortie</label>
+        <br>
+        <input class="form-control" type="date" formControlName="dateSortie" class="form-control">
+
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+
+        <label for="bday">Heure de Sortie *</label>
+        <br>
+        <input formControlName="heureSortie" type="time" name="appt" class="form-control">
+      </div>
+      
+      <div *ngIf="heureSortie.invalid && (heureSortie.dirty || heureSortie.touched )" class="alert alert-danger"
+        role="alert">
+        <div *ngIf="heureSortie.errors.required">
+button  desactiver  :heureSortie <b>obligatoire</b>
+        </div>
+        <div *ngIf="heureSortie.errors.pattern">
+          Button valider chteb9a disactiver : pattern errors 
+        </div>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+
+        <label for="bday">Heure de retour *</label>
+        <br>
+        <input formControlName="heureRetour" type="time" name="appt" class="form-control">
+      </div>
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="firstname6">au titre de *</label>
+        <br>
+        <input formControlName="raison" placeholder="raison..." type="text" pInputText class="form-control">
+      </div>
+
+
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="firstname6">Destination</label>
+        <br>
+        <input formControlName="destination" placeholder="destination..." type="text" pInputText class="form-control">
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <label for="firstname6">Motif</label>
+        <br>
+        <input formControlName="motif" placeholder="Motif..." type="text" pInputText class="form-control">
+      </div>
+
+
+      <div class="p-field p-col-12 p-md-6">
+        <label for="firstname6">Validateur</label>
+        <br>
+        <input formControlName="validateur" placeholder="Validateur..." type="email" pInputText class="form-control">
+
+      </div>
+
+    </div>
+<div style="margin-left: 40%;">
+    <button class="btn btn-danger" iconPos="p-ai-center" (click)="add(ajc.value)" [disabled]="ajoutinf.invalid" color="warn">Valider</button>
+  </div> 
+  </form>
+ 
+  <!--<div [hidden]="!submitted">
+                  <h4>You submitted successfully!</h4>
+                  <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+</div>

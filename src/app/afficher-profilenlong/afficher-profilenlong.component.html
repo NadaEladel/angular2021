@@ -1,0 +1,237 @@
+<div class="container"> <!-- Links -->
+  <nav id="sidebar">
+    
+    <ul class="list-unstyled components">
+<br> <br>
+      <li>
+        <a href="/dims" routerLink="/dims">Dimensionnement </a>
+
+      </li>
+      <br>
+      <li>
+        <a href="/profils" routerLink="/profils">Profil </a>
+      </li>
+      <br>
+     
+
+    </ul>
+
+
+  </nav>
+  <br> <br>
+
+  <!-- Page Content Holder -->
+  <div id="content">
+
+    
+<p-toast></p-toast>
+<div class="pt-4">
+    <h2 class="p-m-0">Profil en long List </h2>
+    <br>
+    <div class="card">
+
+    <p-toolbar styleClass="p-mb-4" class="pt-4">
+        <!--  -->
+        <ng-template pTemplate="left">
+          <div>
+          <button pButton pRipple label="Ajout" icon="pi pi-plus" 
+          class="p-button-danger p-mr-2" [disabled]="for.invalid" (click)="openNew()"></button>
+        </div> 
+        </ng-template>
+        <ng-template pTemplate="right">
+
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="tabs" [rows]="10" [paginator]="true" [globalFilterFields]="['canals','namont','naval','hauteurchute','nombredechute','chute','longueur','cotetnamont','cotetnaval']" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between ">
+                <span class="p-input-icon-left ">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." />
+                </span>
+            </div>
+        </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+
+               
+            <th pSortableColumn="canals">Canals
+              <p-sortIcon field="canals"></p-sortIcon>
+          </th>
+          <th pSortableColumn="namont">Nœud Amont
+            <p-sortIcon field="namont"></p-sortIcon>
+        </th>
+        <th pSortableColumn="naval">Nœud Aval
+          <p-sortIcon field="naval"></p-sortIcon>
+      </th>
+      <th pSortableColumn="hauteurchute">Hauteur chute(m)
+        <p-sortIcon field="hauteurchute"></p-sortIcon>
+    </th>
+    <th pSortableColumn="nombredechute">Nombre de chute(m)
+      <p-sortIcon field="nombredechute"></p-sortIcon>
+  </th>
+  <th pSortableColumn="chute">Chute(m)
+    <p-sortIcon field="chute"></p-sortIcon>
+</th>
+<th pSortableColumn="longueur">Longueur()
+  <p-sortIcon field="longueur"></p-sortIcon>
+</th>
+<th pSortableColumn="modifier">Modifier
+  <p-sortIcon field="modifier"></p-sortIcon>
+</th>
+<th pSortableColumn="supprimer">Supprimer
+<p-sortIcon field="suprimer"></p-sortIcon>
+</th>
+<th>
+<i class="pi pi-angle-double-down" style="font-size: 2rem"></i>
+
+</th>  
+            </tr> 
+        </ng-template> 
+        <ng-template pTemplate="body" let-profil>
+            <tr>
+               
+              <td>{{profil.canals}}</td>
+              <td>{{profil.namont}}</td>
+              <td>{{profil.naval}}</td>
+              <td>{{profil.hauteurchute}}</td>
+              <td>{{profil.nombredechute}}</td>
+              <td>{{profil.chute}}</td>
+              <td>{{profil.longueur}}</td>
+             
+              <td><a class="btn btn-success" (click)="onEdit(profil)">
+                <div class="fa fa-fw fa-edit"></div> Modifier</a></td>
+
+              <td><a class="btn btn-danger" (click)="onDelete(profil.id)">
+                <div class="fa fa-fw fa-eraser"></div>Supprimer</a></td>
+          
+                <td>
+
+                  <button pButton pRipple (click)="showDialog()" icon="pi pi-plus" class="p-button-danger p-mr-2" label="Show"></button>
+                  <p-dialog  header="Title" [style]="{width: '600px'}" [(visible)]="display">
+                    <p-accordion>
+                      <p-accordionTab header="Cote tn amont(m)">
+                        {{profil.cotetnamont}}
+                    </p-accordionTab>
+                    <p-accordionTab header="Cote tn aval(m)">
+                        {{profil.cotetnaval}}                     
+                    </p-accordionTab>
+
+                    </p-accordion>
+ 
+                    </p-dialog>
+                  </td>
+           
+               
+              
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Au total, il y a {{tabs ? tabs.length : 0 }} des profil en long.
+            </div>
+        </ng-template>
+    </p-table>
+  <p-dialog [(visible)]="ajoutInf" [style]="{width: '800px'}" header="Ajouter profil en long" [modal]="true" styleClass="p-fluid">
+
+
+      <app-ajouter-profilenlong *ngIf="ajoutInf==true" [form]=" for "></app-ajouter-profilenlong>
+    </p-dialog>
+
+
+</div>
+
+
+<p-dialog header="modifier profil en long " [(visible)]="display1" 
+[style]="{width: '50vw'}" [baseZIndex]="10000">
+  <div class="container">
+  
+    <div class="panel panel-default" >
+  
+      <div class="panel-body" *ngIf="profil" >
+           <!--    <form *ngIf="!isSuccessful"
+              name="form"
+              (ngSubmit)="f.form.valid && onupdateprod(f.value)"
+              #f="ngForm"
+              novalidate>
+          <div class="form-group">
+  
+            <label for="usernameupdate" class="control-label"> Name</label>
+  
+            <input id="usernameupdate" class="form-control"
+                   required
+                   minlength="3"
+                   maxlength="20"
+                   #username="ngModel" type="text" name="name" ngModel [(ngModel)]="currentprod.name">
+          </div>
+          <div class="alert-danger" *ngIf="f.submitted && username.invalid">
+            <div *ngIf="username.errors.required">Username is required</div>
+            <div *ngIf="username.errors.minlength">
+              Username must be at least 3 characters
+            </div>
+            <div *ngIf="username.errors.maxlength">
+              Username must be at most 20 characters
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="descriptionsupdate" > Description</label>
+            <textarea id="descriptionsupdate"   #descriptions="ngModel" required
+                      minlength="3"
+                      maxlength="2000" class="form-control" type="text" name="description" ngModel [(ngModel)]="currentprod.description"></textarea>
+          </div>
+          <div class="alert-danger" *ngIf="f.submitted && descriptions.invalid">
+            <div *ngIf="descriptions.errors.required">description is required</div>
+            <div *ngIf="descriptions.errors.minlength">
+              description must be at least 3 characters
+            </div>
+            <div *ngIf="descriptions.errors.maxlength">
+              description must be at most 20 characters
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="quantiteupdate" class="control-label"> Quantite</label>
+            <input id="quantiteupdate" class="form-control"  required type="number" name="quantite" #quantite="ngModel" ngModel [(ngModel)]="currentprod.quantite">
+          </div>
+          <div class="alert-danger" *ngIf="f.submitted && quantite.invalid">
+            <div *ngIf="quantite.errors.required">quantite is required</div></div>
+          <label>Choisissez une categorie</label>
+          <select  [(ngModel)]="currentprod.categorie" name="categorie" (change)="selected()">
+            <option *ngFor="let food of equipes" [value]="food.value"  >
+              {{food.viewValue}}
+            </option>
+          </select>
+          <button class="btn btn-success" type="submit" >update</button>
+          <br> <br>
+        </form>
+      -->
+   
+        </div>
+      <div [style]="{width: '300px'}"  >
+        <br><br><br>
+  
+      </div>
+    </div>
+  </div>
+  
+  </p-dialog>
+  <!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap Js CDN -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+
+    $('#sidebarCollapse').on('click', function () {
+      $('#sidebar, #content').toggleClass('active');
+      $('.collapse.in').toggleClass('in');
+      $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+  });
+</script>
+
+  
