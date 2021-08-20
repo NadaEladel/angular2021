@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service';
 
 @Component({
@@ -7,20 +9,29 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./board-admin.component.css']
 })
 export class BoardAdminComponent implements OnInit {
+  showFiller = false;
 
   content: string;
+  constructor(public router: Router, private userService: UserService, private token: TokenStorageService) { }
 
-  constructor(private userService: UserService) { }
+  id: number;
+  currentUser: any;
+  roles: string[];
+  isLoggedIn = false;
+  username: string;
 
-  ngOnInit(): void {
-    this.userService.getAdminBoard().subscribe(
-      data => {
-        this.content = data;
-      },
-      err => {
-        this.content = JSON.parse(err.error).message;
-      }
-    );
+
+  ngOnInit() {
+    this.isLoggedIn = !!this.token.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.token.getUser();
+      this.roles = user.roles;
+      this.username = user.username;
+      this.id = user.id;
+    }
+    this.currentUser = this.token.getUser();
+
   }
 
 }

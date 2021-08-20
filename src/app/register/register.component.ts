@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
+  onSubmitRegistre(): void {
     this.authService.register(this.form).subscribe(
       data => {
         console.log(data);

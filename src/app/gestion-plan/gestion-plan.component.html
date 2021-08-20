@@ -1,0 +1,83 @@
+
+
+
+
+
+         <div class="container" >
+            <form name="form" (ngSubmit)="f.form.valid && addavis()" #f="ngForm" novalidate>
+            
+                <div class="p-fluid p-formgrid p-grid">
+            
+                 
+                  
+                  <div class="p-field p-col-12 p-md-6">
+                    <label for="bday">Reseaux</label>
+                    <br>
+                    <input class="form-control" type="text" class="form-control"
+                     id="objt" #objt="ngModel" required minlength="3"
+                    maxlength="2000" name="objt" ngModel [(ngModel)]="obj">
+                   
+                  </div>
+            
+                  <div class="p-field p-col-12 p-md-6">
+                    <label for="firstname6"> Proprietaire </label>
+                    <br>
+                    <input  class="form-control" type="text" id="descriptions" #descriptions="ngModel" required minlength="3"
+                                                        maxlength="2000" matInput name="description" ngModel
+                                                        [(ngModel)]="description">
+                  </div>
+            
+            
+            
+                  <div class="p-field p-col-12 p-md-6">
+                    <label for="firstname6">Adresse</label>
+                    <br>
+                    <input  class="form-control" id="add" #descriptions="ngModel" required minlength="3"
+                                                        maxlength="2000" matInput name="add" ngModel
+                                                        [(ngModel)]="add">
+            
+                  </div>
+                  <div class="p-field p-col-12 p-md-6">
+                    <label for="firstname6">File</label>
+                    <br>
+                    <input type="file" (change)="selectFile($event)">
+                
+                <div class="alert alert-light" role="alert">{{message }}</div>
+
+                <div>
+                    <img [src]="imgURL" height="200"  *ngIf="imgURL">
+                </div>
+            
+                  </div>
+            
+                 
+        
+            
+                 
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped"
+                        role="progressbar" attr.aria-valuenow="{{progress}}" aria-valuemin="0"
+                        aria-valuemax="100" [ngStyle]="{width:progress+'%'}">
+                        {{progress}}%</div>
+                </div>
+                <div style="margin-left: 40%;">
+                 <br>  
+                    <button class="btn btn-success" style=" width: 30%;" iconPos="p-ai-center" [disabled]="!selectedFiles" type="submit"
+                    color="warn" type="submit">Valider
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z" />
+                </svg>
+                  </button>
+                <div class="alert alert-light" role="alert">{{ message }}</div>
+                </div> 
+                
+            
+              </form>
+            </div> 
+              
+            
+        
+        

@@ -15,6 +15,11 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
 
+  formregistre: any = {};
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessageRegistre = '';
+
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
@@ -27,9 +32,10 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.login(this.form).subscribe(
       data => {
+       
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
-
+        
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
@@ -46,4 +52,18 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
 
+
+  onSubmitRegistre(): void {
+    this.authService.register(this.formregistre).subscribe(
+      data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      }
+    );
+  }
 }

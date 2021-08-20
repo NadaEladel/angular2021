@@ -1,26 +1,393 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
-  <header class="jumbotron">
-    <h3>
-      <strong>{{ currentUser.username }}</strong> Profile
-    </h3>
-  </header>
-  <p>
-    <strong>Token:</strong>
-    {{ currentUser.accessToken.substring(0, 20) }} ...
-    {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
-  </p>
-  <p>
-    <strong>Email:</strong>
-    {{ currentUser.email }}
-  </p>
-  <strong>Roles:</strong>
-  <ul>
-    <li *ngFor="let role of currentUser.roles">
-      {{ role }}
-    </li>
-  </ul>
-</div>
+<!-- 
 
-<ng-template #loggedOut>
-  Please login.
-</ng-template>
+  <div class="layout-dashboard">
+    <div class="container" *ngIf="currentUser; else loggedOut">
+      <header class="jumbotron">
+        <h3>
+          <strong>{{ currentUser.username }}</strong> Profile
+        </h3>
+      </header>
+      <p>
+        <strong>Token:</strong>
+        {{ currentUser.accessToken.substring(0, 20) }} ...
+        {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
+      </p>
+      <p>
+        <strong>Email:</strong>
+        {{ currentUser.email }}
+      </p>
+      <strong>Roles:</strong>
+      <ul>
+        <li *ngFor="let role of currentUser.roles">
+          {{ role }}
+        </li>
+      </ul>
+    </div>
+    
+    <ng-template #loggedOut>
+      Please login.
+    </ng-template>
+    
+    <div class="card bg-light mb-3" style="max-width: 100rem; max-height:100rem ;">
+      <div class="card-header">
+      
+        <img class="card-img-top" src="assets/image/image2.jpg" alt="Card image cap" style="height: 10rem;">
+        
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Light card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <div style="margin: auto" class="user-detail">
+          <ul>
+              <li>
+                  Email: <span style="float: right;" class="value">ss
+                  </span>
+              </li>
+
+              <li>
+                  Téléphone: <span style="float: right;" class="value">ss
+                  </span>
+              </li>
+              <li>
+                  Date de naissance: <span  style="float: right;" class="value">
+                     ss
+                  </span>
+              </li>
+              <li>
+                  Nationalité: <span style="float: right;" class="value">ss
+                  </span>
+              </li>
+
+              <li>
+                  Adresse: <span  class="value" style="float: right;">
+                 tet</span>
+              </li>
+              <li>
+                  Code postal: <span  class="value" style="float: right;">
+                  test </span>
+              </li>
+              <li>
+                  Pays: <span class="value" style="float: right;">ss</span>
+              </li>
+              <li>
+                  Région: <span class="value" style="float: right;">ss
+                  </span>
+              </li>
+              <li>
+                  Ville: <span class="value" style="float: right;">ss</span>
+              </li>
+
+          </ul>
+      </div>
+      </div>
+    </div>
+
+   -->
+
+
+   <div class="container light-style flex-grow-1 container-p-y">
+
+    
+
+    <div class="card overflow-hidden">
+      <div class="row no-gutters row-bordered row-border-light">
+        <div class="col-md-3 pt-0">
+          <div class="list-group list-group-flush account-settings-links">
+            <a class="list-group-item list-group-item-action " data-toggle="list" (click)="modifierInfo()" >Mes information</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" (click)="modifierpassword(currentUser.id)" >Modifier Mot de passe</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Info</a>
+            
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="tab-content">
+            <div  *ngIf="showgeneral">
+
+              <!-- <div class="card-body media align-items-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="d-block ui-w-80">
+                <div class="media-body ml-4">
+                  <label class="btn btn-outline-primary">
+                    Upload new photo
+                    <input type="file" class="account-settings-fileinput">
+                  </label> &nbsp;
+                  <button type="button" class="btn btn-default md-btn-flat">Reset</button>
+
+                  <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                </div>
+              </div> -->
+              <hr class="border-light m-0">
+
+              <div class="card-body">
+                <div class="tab-pane " id="account-general">
+                  <div *ngIf="user1">
+                  <form *ngIf="!isSuccessful" name="form" #f="ngForm" novalidate
+                  (ngSubmit)="f.form.valid && onupdateprod(f.value)">
+                <div class="form-group">
+                  <label class="form-label">Username:</label>
+                  <!-- <output type="number" class="form-control" id="hour" name="pass" >{{ currentUser.username }}</output> -->
+                
+                  <input [(ngModel)]="user1.username" class="form-control" type="text"  class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email:</label>
+                  <!-- <output type="number" class="form-control" id="hour" name="pass" >{{ currentUser.email}}</output> -->
+                  <input [(ngModel)]="user1.email" class="form-control" type="text"  class="form-control"
+                  [ngModelOptions]="{standalone: true}">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Role:</label>
+                  
+                  <output type="number" class="form-control" id="hour" name="pass" >{{ currentUser.roles[0]}}</output>
+                  <!-- <div class="alert alert-warning mt-3">
+                    Your email is not confirmed. Please check your inbox.<br>
+                    <a href="javascript:void(0)">Resend confirmation</a>
+                  </div> -->
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Entreprise</label>
+                  <output type="number" class="form-control" id="hour" name="pass" >SAFI</output>
+                </div>
+                <div class="text-right mt-3">
+                  <button  type="submit" class="btn btn-primary">Modifier</button>&nbsp;
+                  <button type="button" class="btn btn-default">Cancel</button>
+                </div>
+              </form>
+            </div>
+              </div>
+            </div>
+            </div>
+            <div  *ngIf="showpassword">
+              <div > 
+                <form  [formGroup]="form1" (ngSubmit)="modifierPassword()" >
+              <div class="card-body pb-2">
+
+                <div class="form-group">
+                  <label class="form-label">Current password</label>
+
+                 <!--  <input [(ngModel)]="user1.password" class="form-control" type="password"  class="form-control"
+                  [ngModelOptions]="{standalone: true}"> -->
+                  <!-- <input type="password" class="form-control"> -->
+                  <input
+      formControlName="oldPwd"
+      id="oldPwd"
+      type="password" 
+      class="form-control" />
+    <div class="alert alert-danger" *ngIf=" oldPwd.invalid">
+      <div *ngIf="oldPwd.errors.required">Old Password is required.</div>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">New password</label>
+                  <!-- <input type="password" class="form-control"> -->
+              
+                  <input 
+                  formControlName="newPwd" 
+                  id="newPwd"
+                  type="password"  
+                  class="form-control" />
+                <div class="alert alert-danger" *ngIf="newPwd.invalid">
+                  <div *ngIf="newPwd.errors.required">Confirm new Password is required.</div>
+                </div>
+              </div>
+                
+
+                <div class="form-group">
+                  <label class="form-label">Repeat new password</label>
+                  <!-- <input type="password" class="form-control"> -->
+               
+                  <input 
+                  formControlName="confirmPwd" 
+                  id="confirmPwd"
+                  type="password"  
+                  class="form-control" />
+                <div class="alert alert-danger" *ngIf="confirmPwd.invalid">
+                  <div *ngIf="confirmPwd.errors.required">Confirm Password is required.</div>
+                </div>
+                </div>
+                <div class="text-right mt-3">
+                  <button type="submit" class="btn btn-primary"  >Modifier</button>&nbsp;
+                  <button type="button" class="btn btn-default">Cancel</button>
+                </div>
+
+              </div>
+                </form>
+            </div>
+            </div>
+            <div class="tab-pane fade " id="account-info">
+              <div class="card-body pb-2">
+
+                <div class="form-group">
+                  <label class="form-label">Bio</label>
+                  <textarea class="form-control" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc. Donec fermentum, magna sit amet rutrum pretium, turpis dolor molestie diam, ut lacinia diam risus eleifend sapien. Curabitur ac nibh nulla. Maecenas nec augue placerat, viverra tellus non, pulvinar risus.</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Birthday</label>
+                  <input type="text" class="form-control" value="May 3, 1995">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Country</label>
+                  <select class="custom-select">
+                    <option>USA</option>
+                    <option selected="">Canada</option>
+                    <option>UK</option>
+                    <option>Germany</option>
+                    <option>France</option>
+                  </select>
+                </div>
+
+
+              </div>
+              <hr class="border-light m-0">
+              <div class="card-body pb-2">
+
+                <h6 class="mb-4">Contacts</h6>
+                <div class="form-group">
+                  <label class="form-label">Phone</label>
+                  <input type="text" class="form-control" value="+0 (123) 456 7891">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Website</label>
+                  <input type="text" class="form-control" value="">
+                </div>
+
+              </div>
+      
+            </div>
+            <div class="tab-pane fade" id="account-social-links">
+              <div class="card-body pb-2">
+
+                <div class="form-group">
+                  <label class="form-label">Twitter</label>
+                  <input type="text" class="form-control" value="https://twitter.com/user">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Facebook</label>
+                  <input type="text" class="form-control" value="https://www.facebook.com/user">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Google+</label>
+                  <input type="text" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">LinkedIn</label>
+                  <input type="text" class="form-control" value="">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Instagram</label>
+                  <input type="text" class="form-control" value="https://www.instagram.com/user">
+                </div>
+
+              </div>
+            </div>
+            <div class="tab-pane fade" id="account-connections">
+              <div class="card-body">
+                <button type="button" class="btn btn-twitter">Connect to <strong>Twitter</strong></button>
+              </div>
+              <hr class="border-light m-0">
+              <div class="card-body">
+                <h5 class="mb-2">
+                  <a href="javascript:void(0)" class="float-right text-muted text-tiny"><i class="ion ion-md-close"></i> Remove</a>
+                  <i class="ion ion-logo-google text-google"></i>
+                  You are connected to Google:
+                </h5>
+                nmaxwell@mail.com
+              </div>
+              <hr class="border-light m-0">
+              <div class="card-body">
+                <button type="button" class="btn btn-facebook">Connect to <strong>Facebook</strong></button>
+              </div>
+              <hr class="border-light m-0">
+              <div class="card-body">
+                <button type="button" class="btn btn-instagram">Connect to <strong>Instagram</strong></button>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="account-notifications">
+              <div class="card-body pb-2">
+
+                <h6 class="mb-4">Activity</h6>
+
+                <div class="form-group">
+                  <label class="switcher">
+                    <input type="checkbox" class="switcher-input" checked="">
+                    <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                    <span class="switcher-label">Email me when someone comments on my article</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="switcher">
+                    <input type="checkbox" class="switcher-input" checked="">
+                    <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                    <span class="switcher-label">Email me when someone answers on my forum thread</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="switcher">
+                    <input type="checkbox" class="switcher-input">
+                    <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                    <span class="switcher-label">Email me when someone follows me</span>
+                  </label>
+                </div>
+              </div>
+              <hr class="border-light m-0">
+              <div class="card-body pb-2">
+
+                <h6 class="mb-4">Application</h6>
+
+                <div class="form-group">
+                  <label class="switcher">
+                    <input type="checkbox" class="switcher-input" checked="">
+                    <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                    <span class="switcher-label">News and announcements</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="switcher">
+                    <input type="checkbox" class="switcher-input">
+                    <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                    <span class="switcher-label">Weekly product updates</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="switcher">
+                    <input type="checkbox" class="switcher-input" checked="">
+                    <span class="switcher-indicator">
+                      <span class="switcher-yes"></span>
+                      <span class="switcher-no"></span>
+                    </span>
+                    <span class="switcher-label">Weekly blog digest</span>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="text-right mt-3">
+      <button type="button" class="btn btn-primary">Modifier</button>&nbsp;
+      <button type="button" class="btn btn-default">Cancel</button>
+    </div> -->
+
+  </div>
+
+
+  

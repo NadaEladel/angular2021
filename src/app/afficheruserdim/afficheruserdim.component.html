@@ -1,8 +1,47 @@
+    <!-- Links -->
+    <nav id="sidebar">
+        <div class="list-unstyled components" style="margin-left:40px;">
+            <br>
+            <img src="../../../assets/image/userroleimg.jpg" style="width:210px;">
+            <br><br>
+            <h2>Marwa Chouchani </h2>
+            <h4>marwa.chouchani@yahoo.fr</h4>
+        </div>
+        <ul class="list-unstyled components">
+            <br> <br>
+            <li>
+                <a href="/dimuser" routerLink="/dimuser">Consulter Dimensionnements </a>
 
-<div class="pt-4">
-    <h2 class="p-m-0">Dimensionnement List </h2>
-    <br>
-    <div class="card">
+            </li>
+
+        </ul>
+
+
+    </nav>
+    <br> <br>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+
+
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Page</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+</div>
+
+
+
+    <div class="card"  style="margin-left: 10px; width: 2000px;margin-top: 70px">
 
 
     <p-table #dt [value]="tabs" [rows]="10" [paginator]="true" [globalFilterFields]="['nomComplet','dateSortie','heureSortie','heureRetour','raison','destination','motif','validateur','etat']" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
@@ -83,3 +122,4 @@
     </p-table>
 
 </div>
+

@@ -6,20 +6,26 @@
 </div>
 -->
 <div class="container"> <!-- Links -->
+
   <nav id="sidebar">
+<div class="list-unstyled components" style="margin-left:40px;">
+  <br>
+   <img src="../../../assets/image/userroleimg.jpg" style="width:210px; margin-top: 40px; margin-left:-28px;">
+    <br> <br>  
+   <h4><span style=" margin-top: 60px ; font-size: large;">{{currentUser.username}}</span></h4>               
+   <h4><span style=" margin-top: 30px ;  font-size: large;">{{currentUser.email}}</span></h4>
+
+   <br><br><br>
   
+</div>
     <ul class="list-unstyled components">
-<br> <br>
+
       <li>
-        <a href="/dims" routerLink="/dims">Dimensionnement </a>
+        <a  routerLink="/user/ajoutnote">upload image </a>
+       <a  routerLink="/user/alldims"> Tous les dimensionnements </a>
+      <a routerLink="/user/allp"> Tous les profil en long </a>
 
       </li>
-      <br>
-      <li>
-        <a href="/profils" routerLink="/profils">Profil </a>
-      </li>
-      <br>
-     
 
     </ul>
 
@@ -45,6 +51,9 @@
 
 
   </div>
+
+      <router-outlet></router-outlet>
+
 </div>
 
 

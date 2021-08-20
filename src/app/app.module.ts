@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {AfficherDimensionnementComponent} from 'src/app/afficher-dimensionnement/afficher-dimensionnement.component';
 
+import { ChartsModule } from 'ng2-charts';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -21,12 +23,11 @@ import { AjouterComponent } from './ajouter/ajouter.component';
 import { AfficherComponent } from './afficher/afficher.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 // material.module.ts
-import { ModuleWithProviders, NgModule} from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule} from "@angular/core";
 //import { MAT_LABEL_GLOBAL_OPTIONS, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
-import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -37,10 +38,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -54,13 +52,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+
+
+
 
 // PrimeNg Module
 import {FieldsetModule} from 'primeng/fieldset';
-
+import { RatingModule } from 'primeng/rating';
 import { AccordionModule } from 'primeng/accordion';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -86,11 +92,27 @@ import {CardModule} from 'primeng/card';
 import {TooltipModule} from 'primeng/tooltip';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ToolbarModule} from 'primeng/toolbar';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+
 
 import {AjouterDimensionnementComponent} from 'src/app/ajouter-dimensionnement/ajouter-dimensionnement.component';
 import { AjouterProfilenlongComponent } from './ajouter-profilenlong/ajouter-profilenlong.component';
 import { AfficherProfilenlongComponent } from './afficher-profilenlong/afficher-profilenlong.component';
 import { AfficheruserdimComponent } from './afficheruserdim/afficheruserdim.component';
+import { DashbordComponent } from './dashbord/dashbord.component';
+import { UploadComponent } from './upload/upload.component';
+import { AfficheUploadComponent } from './affiche-upload/affiche-upload.component';
+import { AjoutnoteComponent } from './ajoutnote/ajoutnote.component';
+import { NoteadminComponent } from './noteadmin/noteadmin.component';
+import { UtilisateursComponent } from './utilisateurs/utilisateurs.component';
+import { GestionPlanComponent } from './gestion-plan/gestion-plan.component';
+import { PlanComponent } from './plan/plan.component';
+import { ProfilenlongComponent } from './profilenlong/profilenlong.component';
+import { ConsulterdimensionnementComponent } from './consulterdimensionnement/consulterdimensionnement.component';
+import { ConsulterprofilenlongComponent } from './consulterprofilenlong/consulterprofilenlong.component';
+import { StatistiqueComponent } from './statistique/statistique.component';
+import { RechercheComponent } from './recherche/recherche.component';
+
 
 @NgModule({
   declarations: [
@@ -108,9 +130,25 @@ import { AfficheruserdimComponent } from './afficheruserdim/afficheruserdim.comp
     AjouterDimensionnementComponent,
     AjouterProfilenlongComponent,
     AfficherProfilenlongComponent,
-    AfficheruserdimComponent
-  ],
+    AfficheruserdimComponent,
+    DashbordComponent,
+    UploadComponent,
+    AfficheUploadComponent,
+    AjoutnoteComponent,
+    NoteadminComponent,
+    UtilisateursComponent,
+    GestionPlanComponent,
+    PlanComponent,
+    ProfilenlongComponent,
+    ConsulterdimensionnementComponent,
+    ConsulterprofilenlongComponent,
+    StatistiqueComponent,
+    RechercheComponent
+    ],
   imports: [
+
+    RatingModule,
+    ChartsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -169,10 +207,7 @@ import { AfficheruserdimComponent } from './afficheruserdim/afficheruserdim.comp
         MatExpansionModule,
         MatFormFieldModule,
         MatGridListModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
+        MatInputModule, 
         MatPaginatorModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
@@ -188,9 +223,17 @@ import { AfficheruserdimComponent } from './afficheruserdim/afficheruserdim.comp
         MatTabsModule,
         MatToolbarModule,
         MatTooltipModule,
-        MatTreeModule,
-        
-        
+        MatTreeModule  ,
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatButtonModule,
+        ScrollPanelModule,
+        MatIconModule   
     ],
     exports: [
         MatAutocompleteModule,
@@ -229,6 +272,7 @@ import { AfficheruserdimComponent } from './afficheruserdim/afficheruserdim.comp
         
   ],
   providers: [authInterceptorProviders],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

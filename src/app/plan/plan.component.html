@@ -1,0 +1,252 @@
+<!-- <button mat-icon-button (click)="drawer.toggle()">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-nav-list>
+      <div class="profile-card">
+        <div class="header">
+          <h2>Nada ElAdel</h2>
+          <h4>nada.eladel@esprit.tn</h4>
+        </div>
+        <img src="../../../assets/image/adminrole.png" style="width:190px;margin-left:50px;height:200px;">
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h2 matSubheader>Pages</h2>
+
+      <a mat-list-item href="/dims" routerLink="/dims">Toutes les dimensionnements</a>
+      <a mat-list-item href="/profils" routerLink="/profils">Toutes les profils </a>
+      <a mat-list-item href="/afficheup" routerLink="/afficheup">affichage de l'image </a>
+      <a mat-list-item href="/noteadmin" routerLink="/noteadmin">affichage de la note </a>
+
+
+
+
+      <mat-divider></mat-divider>
+
+      <h2 matSubheader>Tools</h2>
+
+
+    </mat-nav-list>
+  </mat-drawer> -->
+<!--
+ <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  <mat-drawer-container class="example-container" autosize  >
+    <mat-drawer #drawer class="example-sidenav" mode="side" style="width: 350px;">
+      <mat-nav-list>
+        <div class="profile-card" style="margin-left:40px;" >
+         
+          <img src="../../../assets/image/adminrole.png" style="width:190px;height:200px;">
+          <h4><span style="margin-left: 44px">{{currentUser.username}}</span></h4>
+                
+          <h4><span style="margin-left: 44px">{{currentUser.email}}</span></h4>
+  
+        </div>
+  
+        <mat-divider></mat-divider>
+  
+        <h2 matSubheader>Pages</h2>
+  
+       <a mat-list-item href="/noteadmin" routerLink="/noteadmin">Affichage de note </a>
+      <a mat-list-item href="/plan1" routerLink="/plan1">Gestion des plans </a>
+  
+  
+       
+  
+  
+        <mat-divider></mat-divider>
+  
+      
+  
+    
+  
+      </mat-nav-list>
+    </mat-drawer> 
+-->
+
+  <div class="example-sidenav-content" style="margin-top: -1000px">
+
+  </div>
+  <div>
+<p-toast></p-toast>
+   
+    <div class="card"  style="margin-left: 10px; width: 2000px;margin-top: 70px">
+
+    <p-toolbar styleClass="p-mb-4" class="pt-4">
+        <!--  -->
+        <ng-template pTemplate="left">
+          <div>
+          <button pButton pRipple label="Ajouter plan " style="color: rgb(255, 255, 255) ;background-color: rgb(81, 99, 160) ; border: beige;"  icon="pi pi-plus"  
+          class="p-button-danger p-mr-2" [disabled]="for.invalid" (click)="openNew()"></button>
+        </div> 
+        </ng-template>
+        <ng-template pTemplate="right">
+
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="tabs" [rows]="10" [paginator]="true" [globalFilterFields]="['canals','namont','naval','hauteurchute','nombredechute','chute','longueur','cotetnamont','cotetnaval']" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between ">
+                <span class="p-input-icon-left ">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." />
+                </span>
+            </div>
+        </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+
+               
+            <th pSortableColumn="canals">Reseaux
+              <p-sortIcon field="canals"></p-sortIcon>
+          </th>
+          <th pSortableColumn="namont">Proprietaire
+            <p-sortIcon field="namont"></p-sortIcon>
+        </th>
+        <th pSortableColumn="naval">Adresse
+          <p-sortIcon field="naval"></p-sortIcon>
+      </th>
+      <th pSortableColumn="hauteurchute">Creer par
+        <p-sortIcon field="hauteurchute"></p-sortIcon>
+    </th>
+    <th pSortableColumn="nombredechute"> File
+      <p-sortIcon field="nombredechute"></p-sortIcon>
+  </th>
+ 
+<th pSortableColumn="modifier">Modifier
+  <p-sortIcon field="modifier"></p-sortIcon>
+</th>
+<th pSortableColumn="supprimer">Supprimer
+<p-sortIcon field="suprimer"></p-sortIcon>
+</th>
+<th pSortableColumn="supprimer">Dimmensionnement
+  <p-sortIcon field="suprimer"></p-sortIcon>
+  </th>
+
+ 
+            </tr> 
+        </ng-template> 
+        <ng-template pTemplate="body" let-plan>
+            <tr>
+               
+              <td>{{plan.reseaux}}</td>
+              <td>{{plan.proprietaire}}</td>
+              <td>{{plan.adresse}}</td>
+             
+              <td>{{plan.user.username}}</td>
+              <td>{{plan.nom}}
+                &nbsp;&nbsp;&nbsp; <span class="material-icons" (click)="downloadFile(plan.nom)">
+                    vertical_align_bottom
+
+                </span>
+            </td>
+             
+             
+              <td><a class="btn btn-success" (click)="onEdit(plan)" style="color: rgb(255, 255, 255)" width=80px>
+                <div class="fa fa-fw fa-edit"></div> Modifier
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
+                viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+              </svg>
+              </a></td>
+
+              <td><a class="btn btn-danger" (click)="onDelete(plan.idPlan)" style="color: rgb(255, 255, 255)" width=80px>
+                <div class="fa fa-fw fa-eraser"></div>Supprimer
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                  <path fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                </svg>
+              </a></td>
+          
+
+
+                <td><a class="btn btn-danger" (click)="addDim(plan.idPlan)" style="color: rgb(255, 255, 255) ; border: beige ;  background-color: rgb(81, 99, 160)"width=80px>
+                  <div class="fa fa-fw fa-eraser"></div>Ajouter
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                  viewBox="0 0 16 16">
+                  <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                </svg>
+                </a></td>
+            
+                  
+               
+           
+               
+              
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Au total, il y a {{tabs ? tabs.length : 0 }} des profil en long.
+            </div>
+        </ng-template>
+    </p-table>
+  <p-dialog [(visible)]="ajoutInf" [style]="{width: '800px'}" header="Ajouter plan" [modal]="true" styleClass="p-fluid">
+
+
+
+      <app-gestion-plan *ngIf="ajoutInf==true" [form]=" for "></app-gestion-plan>
+    </p-dialog>
+
+
+</div>
+
+
+<p-dialog header="modifier plan " [(visible)]="display1" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <div class="container">
+
+    <div class="panel panel-default">
+
+      <div class="panel-body" *ngIf="profil">
+        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onupdateprod(f.value)" #f="ngForm"
+          novalidate>
+          
+          <div class="p-field p-col-12 p-md-6">
+            <label for="bday">Proprietaire</label>
+            <br>
+            <input [(ngModel)]="profil.proprietaire" class="form-control" type="text" class="form-control"
+              [ngModelOptions]="{standalone: true}">
+
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label for="bday">Reseaux</label>
+            <br>
+            <input [(ngModel)]="profil.reseaux" class="form-control" type="text" class="form-control"
+              [ngModelOptions]="{standalone: true}">
+
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Adresse:</label>
+            <br>
+            <input [(ngModel)]="profil.adresse" type="text" pInputText
+              class="form-control" [ngModelOptions]="{standalone: true}">
+          </div>
+
+          <button class="btn btn-success" type="submit">Modifier</button>
+
+
+          
+        </form>
+      </div>
+      <div [style]="{width: '300px'}">
+        <br><br><br>
+
+      </div>
+    </div>
+  </div>
+
+</p-dialog></div>
+<!-- </mat-drawer-container> -->

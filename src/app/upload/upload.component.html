@@ -1,0 +1,95 @@
+<br><br><br><br><br>
+<h2>
+</h2>
+
+<div class="container">
+    <!-- Links -->
+    
+<nav id="sidebar">
+    <div class="list-unstyled components" style="margin-left:50px;">
+        <br>
+        <img src="../../../assets/image/userroleimg.jpg" style="width:210px; margin-top: 40px; margin-left:-28px;" >
+        <br><br><br>
+        <h2>Zeineb  </h2>
+        <h4>zeineb.sallah@esprit.tn</h4>
+    </div>
+    <ul class="list-unstyled components">
+       
+        <li>
+            <a href="/upload" routerLink="/upload">upload image </a>
+            <a href="/ajoutnote" routerLink="/ajoutnote">Ajouter note </a>
+
+
+        </li>
+
+    </ul>
+
+
+</nav>
+<br> <br>
+
+    <!-- Page Content Holder -->
+    <div id="contente" style="margin-left: 1300px;margin-top: 30px">
+
+        <td class="panel-body" id="child-left" style="margin-left: 1500px;">
+            <p-scrollPanel [style]="{width: '100%', height: '700px'}" styleClass="custom">
+                <div class="tab-pane" id="tab2">
+
+                    <div >
+                        <form name="form" (ngSubmit)="f.form.valid && uploadfile()" #f="ngForm" novalidate>
+                            <div class="widget">
+                                <div class="col-xl-12"></div>
+                                <div class="col-xl-12" style=" width:1100px;color: dimgray;">
+                                    <div style="background-color: cornflowerblue">
+                                        <div class="card" style="border: none; background-color:white">
+                                            <div class="card-body" style="margin-top: 150px;background-color: white">
+
+                                                <h2><span style=" color:darkcyan;width: 20px">Telecharger votre image
+                                                         </span> </h2>
+                                                <br><br>
+                                                <div>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-info progress-bar-striped"
+                                                            role="progressbar" attr.aria-valuenow="{{progress}}"
+                                                            aria-valuemin="0" aria-valuemax="100"
+                                                            [ngStyle]="{width:progress+'%'}">
+                                                            {{progress}}%</div>
+                                                    </div>
+
+                                                    <label class="btn btn-default">
+                                                        <input type="file" (change)="selectFile($event)">
+
+                                                    </label>
+
+                                                    <br>
+                                                    <br>
+
+                                                    <button class="btn btn-success" [disabled]="!selectedFiles"
+                                                        type="submit"
+                                                        style=" background-color: darkcyan;">valider</button>
+
+                                                    <div class="alert alert-light" role="alert">{{ message }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card" style="margin-left: 30px;">
+                        <div class="card-header">Image</div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                
+<img [src]="imgURL" height="200" *ngIf="imgURL">
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <br><br>
+            </p-scrollPanel>
+    </div>
+</div>

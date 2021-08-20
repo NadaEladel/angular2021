@@ -1,49 +1,67 @@
-<div class="container"> <!-- Links -->
-  <nav id="sidebar">
-    
-    <ul class="list-unstyled components">
-<br> <br>
-      <li>
-        <a href="/dims" routerLink="/dims">Dimensionnement </a>
+<button mat-icon-button (click)="drawer.toggle()">
+  <mat-icon>menu</mat-icon>
+</button>
 
-      </li>
-      <br>
-      <li>
-        <a href="/profils" routerLink="/profils">Profil </a>
-      </li>
-      <br>
+<mat-drawer-container class="example-container" autosize  >
+  <mat-drawer #drawer class="example-sidenav" mode="side" style="width: 350px;">
+    <mat-nav-list>
+      <div class="profile-card" style="margin-left:40px;" >
+       
+        <img src="../../../assets/image/adminrole.png" style="width:190px;height:200px;">
+        <h4><span style="margin-left: 44px">{{currentUser.username}}</span></h4>
+              
+        <h4><span style="margin-left: 44px">{{currentUser.email}}</span></h4>
+
+      </div>
+
+      <mat-divider></mat-divider>
+
+    <h2 matSubheader>Pages</h2>
+    
+    <a mat-list-item routerLink="/admin/noteadmin">Affichage de note </a>
+    <a mat-list-item routerLink="/admin/plan1">Gestion des plans </a>
+    <a mat-list-item routerLink="/admin/stat">Statistique</a>
+    <a mat-list-item routerLink="/admin/recherche">Rechercher</a>
+
+
+
      
 
-    </ul>
 
-
-  </nav>
-  <br> <br>
-
-  <!-- Page Content Holder -->
-  <div id="content">
+      <mat-divider></mat-divider>
 
     
- 
+
+  
+
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content" style="margin-top: -1000px">
+    
+  </div> 
+  
+  <div>
+   
 <p-toast></p-toast>
-<div class="pt-4">
-    <h2 class="p-m-0">Dimensionnement List </h2>
-    <div class="card">
+  
+    <div class="card" style="margin-left: 10px; width: 2000px;margin-top: 20px">
+<!-- 
+    <div class="card"  style="margin-left: 10px; width: 2000px;margin-top: 70px"> -->
+
 
     <p-toolbar styleClass="p-mb-4" class="pt-4">
         <!--  -->
         <ng-template pTemplate="left">
-          <div>
-          <button pButton pRipple label="Ajout" icon="pi pi-plus" 
-          class="p-button-danger p-mr-2" [disabled]="for.invalid" (click)="openNew()"></button>
+          <div >
+          <button pButton pRipple label="Ajouter dimensionnement" style="color: rgb(255, 255, 255) ;background-color: rgb(81, 99, 160) ; border: beige;"  icon="pi pi-plus" 
+          class="p-button-danger p-mr-2" [disabled]="for.invalid" (click)="openNew()" ></button>
         </div> 
         </ng-template>
-        <ng-template pTemplate="right">
-
-        </ng-template>
+       
       </p-toolbar>
 
-      <p-table #dt [value]="tabs" [rows]="10" [paginator]="true" [globalFilterFields]="['canals','namont','naval','debitunitaire','surface','largeurdecanal','coefmanning','pente','talus','y0','revanche']" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+      <p-table #dt [value]="tabs" [rows]="10" [paginator]="true" [globalFilterFields]="['canals','namont','naval','debitunitaire','surface','largeurdecanal','coefmanning','pente','talus','y0','revanche','q','vitesse']" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between ">
                 <span class="p-input-icon-left ">
@@ -71,26 +89,20 @@
     <th pSortableColumn="surface">Surface
       <p-sortIcon field="surface"></p-sortIcon>
   </th>
-  <th pSortableColumn="largeurdecanal">LargeurDeCanal
-    <p-sortIcon field="largeurdecanal"></p-sortIcon>
-</th>
-<th pSortableColumn="coefmanning">CoefManning
-  <p-sortIcon field="coefmanning"></p-sortIcon>
-</th>
-
-<th pSortableColumn="pente">Pente
-<p-sortIcon field="pente"></p-sortIcon>
-</th>
-<th pSortableColumn="talus">Talus
-<p-sortIcon field="talus"></p-sortIcon>
-</th>
-
+  
 <th pSortableColumn="modifier">Modifier
   <p-sortIcon field="modifier"></p-sortIcon>
 </th>
 <th pSortableColumn="supprimer">Supprimer
 <p-sortIcon field="suprimer"></p-sortIcon>
 </th>
+<th pSortableColumn="supprimer">Calculer
+  <p-sortIcon field="suprimer"></p-sortIcon>
+  </th>
+
+  <th pSortableColumn="supprimer">Profil en long
+    <p-sortIcon field="suprimer"></p-sortIcon>
+    </th>
 <th>
 <i class="pi pi-angle-double-down" style="font-size: 2rem"></i>
 
@@ -105,27 +117,109 @@
               <td>{{dimensionnement.naval}}</td>
               <td>{{dimensionnement.debitunitaire}}</td>
               <td>{{dimensionnement.surface}}</td>
-              <td>{{dimensionnement.largeurdecanal}}</td>
-              <td>{{dimensionnement.coefmanning}}</td>
-              <td>{{dimensionnement.pente}}</td>
-              <td>{{dimensionnement.talus}}</td>
-              <td><a class="btn btn-success" (click)="onEdit(dimensionnement)">
-                <div class="fa fa-fw fa-edit"></div> Modifier</a></td>
+              <td><a class="btn btn-success" (click)="onEdit(dimensionnement)" style="color: rgb(255, 255, 255)  "width=80px >
+                <div class="fa fa-fw fa-edit" > 
+                  
+                </div> Modifier 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                  <path fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                </svg>
+              </a></td>
 
-              <td><a class="btn btn-danger" (click)="onDelete(dimensionnement.id)">
-                <div class="fa fa-fw fa-eraser"></div>Supprimer</a></td>
-          
+              <td><a class="btn btn-danger" (click)="onDelete(dimensionnement.id)" style="color: rgb(255, 255, 255) ">
+                <div class="fa fa-fw fa-eraser"></div>Supprimer 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                  <path fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                </svg>
+              </a></td>
+
+                <td><a class="btn btn-danger"  (click)="openCalcule(dimensionnement.id)" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255)"  >
+                  <div class="fa fa-fw fa-eraser"></div>Calculer
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                    <path
+                      d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                  </svg>
+                </a></td>
+
+
+                  <td><a class="btn btn-danger" (click)="addProfilenlong(dimensionnement.id)" style="color: rgb(255, 255, 255) ; border: beige ;  background-color: rgb(81, 99, 160)" >
+                    <div class="fa fa-fw fa-eraser"></div>Ajouter
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                      viewBox="0 0 16 16">
+                      <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                    </svg>
+                  </a></td>
                 <td>
+                  
+              
+                    
 
-                  <button pButton pRipple (click)="showDialog()" icon="pi pi-plus" class="p-button-danger p-mr-2" label="Show"></button>
-                  <p-dialog  header="Title" [style]="{width: '600px'}" [(visible)]="display">
+                  <button pButton pRipple (click)="showDialog(dimensionnement)" style="color: rgb(95, 95, 95) ; background-color: rgba(209, 209, 209, 0.89); border:beige;"   label="Voir plus" icon="pi pi-plus"></button>
+                  <p-dialog  header="Détail" [style]="{width: '600px'}" [(visible)]="display" >
                     <p-accordion>
-                      <p-accordionTab header="Revanche">
-                        {{dimensionnement.revanche}}                      
-                    </p-accordionTab>
+                      <p-accordionTab header="largeurdecanal">
+                        <td>{{dimensionnement.largeurdecanal}}</td>
+                      </p-accordionTab>
+
+                      <p-accordionTab header="coefmanning">
+                        <td>{{dimensionnement.coefmanning}}</td>
+                      </p-accordionTab>
+
+                      <p-accordionTab header="pente">
+                        {{dimensionnement.pente}}
+                      </p-accordionTab>
+
+                      <p-accordionTab header="talus">
+                        <td>{{dimensionnement.talus}}</td>
+                      </p-accordionTab>
+
                       <p-accordionTab header="Y0">
                         {{dimensionnement.y0}}
-                     </p-accordionTab>
+                      </p-accordionTab>
+
+                      <p-accordionTab header="Revanche">
+                        {{dimensionnement.revanche}}
+                      </p-accordionTab>
+          
+                      <p-accordionTab header="b">
+                        <td>{{dimensionnement.b}}</td>
+                      </p-accordionTab>
+
+                      
+                     
+
+ 
+  
+ 
+  <p-accordionTab header="yn">
+    <td>{{dimensionnement.yn}}</td>
+</p-accordionTab>
+
+<p-accordionTab header="hretenue">
+  <td>{{dimensionnement.hretenue}}</td>
+</p-accordionTab>
+
+<p-accordionTab header="vitesse">
+  <td>{{dimensionnement.vitesse}}</td>
+</p-accordionTab>
+<p-accordionTab header="debit">
+  {{dimensionnement.q}}
+</p-accordionTab>
+
+<p-accordionTab header="section">
+  <td>{{dimensionnement.section}}</td>
+</p-accordionTab>
 
                     </p-accordion>
  
@@ -142,78 +236,266 @@
             </div>
         </ng-template>
     </p-table>
-  <p-dialog [(visible)]="ajoutInf" [style]="{width: '800px'}" header="Ajouter dimensionnement" [modal]="true" styleClass="p-fluid">
+  <p-dialog [(visible)]="ajoutInf"  [style]="{width: '800px'}" header="Ajouter dimensionnement" [modal]="true" styleClass="p-fluid" >
 
+ <div class="container" >
+      <form [formGroup]="ajoutinf1" #ajc="ngForm">
+      
+          <div class="p-fluid p-formgrid p-grid">
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">Canals</label>
+              <br>
+              <select formControlName="canals"  (change)="selected()"
+              placeholder="Canals..." type="text" class="form-control">
+              <option *ngFor="let cat of categories" [value]="cat.value">
+                {{cat.viewValue}}
+              </option> 
+              
+            </select>
+          
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">NœudAmont</label>
+              <br>
+              <input class="form-control" type="text" formControlName="namont" class="form-control">
+      
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">NœudAval</label>
+              <br>
+              <input class="form-control" type="text" formControlName="naval" class="form-control">
+      
+            </div>
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">DebitUnitaire</label>
+              <br>
+              <input formControlName="debitunitaire" placeholder="DebitUnitaire..." type="number" pInputText class="form-control">
+            </div>
+      
+      
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">Surface</label>
+              <br>
+              <input formControlName="surface" placeholder="Surface..." type="number" pInputText class="form-control">
+            </div>
+      
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">LargeurDeCanal</label>
+              <br>
+              <input formControlName="largeurdecanal" placeholder="LargeurDeCanal..." type="number" pInputText class="form-control">
+      
+            </div>
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">CoefManning</label>
+              <br>
+              <input formControlName="coefmanning" placeholder="CoefManning..." type="number" pInputText class="form-control">
+      
+            </div>
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">Pente</label>
+              <br>
+              <input formControlName="pente" placeholder="Pente..." type="number" pInputText class="form-control">
+      
+            </div>
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">Talus</label>
+              <br>
+              <input formControlName="talus" placeholder="Talus..." type="number" pInputText class="form-control">
+      
+            </div>
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">Y0</label>
+              <br>
+              <input formControlName="y0" placeholder="Y0..." type="number" pInputText class="form-control">
+      
+            </div>
 
-      <app-ajouter-dimensionnement *ngIf="ajoutInf==true" [form]=" for "></app-ajouter-dimensionnement>
+      
+            <div class="p-field p-col-12 p-md-6">
+              <label for="firstname6">Revanche</label>
+              <br>
+              <input formControlName="revanche" placeholder="Revanche..." type="number" pInputText class="form-control">
+      
+            </div>
+      <div class="p-field p-col-12 p-md-6">
+        <label for="firstname6">base de canal</label>
+        <br>
+       <input formControlName="b" placeholder="b..." type="number" pInputText class="form-control">
+
+      </div>
+           
+          </div>
+          <div style="margin-left: 40%;">
+              <button class="btn btn-success" style=" width: 30%;" iconPos="p-ai-center" (click)="add(ajc.value)" [disabled]="ajoutinf1.invalid" color="warn">Valider
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z" />
+                </svg>
+              </button>
+            </div> 
+      
+      
+        </form>
+      </div> 
+        
+      
+     
+   <!--  <app-ajouter-dimensionnement *ngIf="ajoutInf==true" [form]=" for "></app-ajouter-dimensionnement> -->
     </p-dialog>
 
 
 
-</div></div>
+</div>
 
-<p-dialog header="modifier offre " [(visible)]="display1" 
-[style]="{width: '50vw'}" [baseZIndex]="10000">
+<!--<p-dialog header="modifier dimensionnement " [(visible)]="display1" 
+[style]="{width: '50vw'}" [baseZIndex]="10000" >
   <div class="container">
   
     <div class="panel panel-default" >
   
       <div class="panel-body" *ngIf="dim" >
-    <!--    <form *ngIf="!isSuccessful"
+        <form *ngIf="!isSuccessful"
               name="form"
               (ngSubmit)="f.form.valid && onupdateprod(f.value)"
               #f="ngForm"
               novalidate>
-          <div class="form-group">
-  
-            <label for="usernameupdate" class="control-label"> Name</label>
-  
-            <input id="usernameupdate" class="form-control"
-                   required
-                   minlength="3"
-                   maxlength="20"
-                   #username="ngModel" type="text" name="name" ngModel [(ngModel)]="currentprod.name">
-          </div>
-          <div class="alert-danger" *ngIf="f.submitted && username.invalid">
-            <div *ngIf="username.errors.required">Username is required</div>
-            <div *ngIf="username.errors.minlength">
-              Username must be at least 3 characters
-            </div>
-            <div *ngIf="username.errors.maxlength">
-              Username must be at most 20 characters
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="descriptionsupdate" > Description</label>
-            <textarea id="descriptionsupdate"   #descriptions="ngModel" required
-                      minlength="3"
-                      maxlength="2000" class="form-control" type="text" name="description" ngModel [(ngModel)]="currentprod.description"></textarea>
-          </div>
-          <div class="alert-danger" *ngIf="f.submitted && descriptions.invalid">
-            <div *ngIf="descriptions.errors.required">description is required</div>
-            <div *ngIf="descriptions.errors.minlength">
-              description must be at least 3 characters
-            </div>
-            <div *ngIf="descriptions.errors.maxlength">
-              description must be at most 20 characters
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="quantiteupdate" class="control-label"> Quantite</label>
-            <input id="quantiteupdate" class="form-control"  required type="number" name="quantite" #quantite="ngModel" ngModel [(ngModel)]="currentprod.quantite">
-          </div>
-          <div class="alert-danger" *ngIf="f.submitted && quantite.invalid">
-            <div *ngIf="quantite.errors.required">quantite is required</div></div>
-          <label>Choisissez une categorie</label>
-          <select  [(ngModel)]="currentprod.categorie" name="categorie" (change)="selected()">
-            <option *ngFor="let food of equipes" [value]="food.value"  >
-              {{food.viewValue}}
-            </option>
-          </select>
-          <button class="btn btn-success" type="submit" >update</button>
-          <br> <br>
-        </form>
-      -->
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">Canals</label>
+                <br>
+                <select [(ngModel)]="dim.canals" (change)="selected()" 
+                placeholder="Canals..." type="text" class="form-control"
+                #f0="ngModel" required
+                                 minlength="2"
+                                 maxlength="200" name="f0" ngModel>
+                  <option *ngFor="let cat of categories" [value]="cat.value">
+                    {{cat.viewValue}}
+                  </option>
+                </select>
+              
+              </div>
+              <div class="p-field p-col-12 p-md-6">
+                <label for="bday">NœudAmont</label>
+                <br>
+                <input [(ngModel)]="dim.namont"  class="form-control" type="text"  class="form-control"
+               #f1="ngModel" required
+                                 minlength="2"
+                                 maxlength="200" name="f1" ngModel>
+        
+              </div>
+              <div class="p-field p-col-12 p-md-6">
+                <label for="bday">NœudAval</label>
+                <br>
+                <input [(ngModel)]="dim.naval"  class="form-control" type="text"  class="form-control"
+              #f2="ngModel" required
+                                 minlength="2"
+                                 maxlength="200" name="f2" ngModel >
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">DebitUnitaire</label>
+                <br>
+                <input [(ngModel)]="dim.debitunitaire"
+                  placeholder="DebitUnitaire..." type="number" pInputText class="form-control"
+                  #f3="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f3" ngModel>
+              </div>
+        
+        
+        
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">Surface</label>
+                <br>
+                <input [(ngModel)]="dim.surface"  placeholder="Surface..." type="number"
+                 pInputText class="form-control"  
+                 #f4="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f4" ngModel>>
+              </div>
+        
+        
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">LargeurDeCanal</label>
+                <br>
+                <input [(ngModel)]="dim.largeurdecanal"  placeholder="LargeurDeCanal..." type="number" 
+                pInputText class="form-control"  
+                 #f5="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f5" ngModel>>>
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">CoefManning</label>
+                <br>
+                <input [(ngModel)]="dim.coefmanning"  placeholder="CoefManning..." type="number" 
+                pInputText class="form-control" 
+                 #f5="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f5" ngModel>>>
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">Pente</label>
+                <br>
+                <input [(ngModel)]="dim.pente"  placeholder="Pente..." type="number"
+                 pInputText class="form-control"  
+                 #f6="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f6" ngModel>
+            
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">Talus</label>
+                <br>
+                <input [(ngModel)]="dim.talus"  placeholder="Talus..." type="number" 
+                pInputText class="form-control"  
+                 #f6="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f6" ngModel>
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">Y0</label>
+                <br>
+                <input [(ngModel)]="dim.y0"  placeholder="Y0..." type="number" 
+                pInputText class="form-control"  
+                 #f6="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f6" ngModel>
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-6">
+                <label for="firstname6">Revanche</label>
+                <br>
+                <input [(ngModel)]="dim.revanche"  placeholder="Revanche..." type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f7" ngModel>
+        
+              </div>
+              <button class="btn btn-success" type="submit" >update</button>
+
+        
+      
+    
+      </form>
         </div>
       <div [style]="{width: '300px'}"  >
         <br><br><br>
@@ -223,21 +505,409 @@
   </div>
   
   </p-dialog>
-  <!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<!-- Bootstrap Js CDN -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+-->
+<p-dialog header="modifier dimensionnement " [(visible)]="display1" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <div class="container">
 
-<script type="text/javascript">
-  $(document).ready(function () {
+    <div class="panel panel-default">
+
+      <div class="panel-body" *ngIf="dim">
+        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onupdateprod(f.value)" #f="ngForm"
+          novalidate>
+
+<div class="p-field p-col-12 p-md-6">
+  <label for="bday">Canals</label>
+  <br>
+ <!--  <select formControlName="canals" (change)="selected()" placeholder="Canals..." type="text" class="form-control">
+    <option *ngFor="let cat of categories" [value]="dim.value" [(ngModel)]="dim.canals"  [ngModelOptions]="{standalone: true}" >
+      {{cat.viewValue}}
+    </option>
+
+  </select> -->
+
+  <select  (change)="selected()"
+              placeholder="Canals..." type="text" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="dim.canals" >
+              <option *ngFor="let cat of categories" [value]="cat.value">
+                {{cat.viewValue}}
+              </option> 
+              
+            </select>
+
+</div>
+          <div class="p-field p-col-12 p-md-6">
+            <label for="bday">namont</label>
+            <br>
+            <input [(ngModel)]="dim.namont" class="form-control" type="text" class="form-control"
+              [ngModelOptions]="{standalone: true}">
+
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label for="bday">naval</label>
+            <br>
+            <input [(ngModel)]="dim.naval" class="form-control" type="text" class="form-control"
+              [ngModelOptions]="{standalone: true}">
+
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">debitunitaire:</label>
+            <br>
+            <input [(ngModel)]="dim.debitunitaire" type="number" pInputText class="form-control"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">surface:</label>
+            <br>
+            <input [(ngModel)]="dim.surface" type="number" pInputText class="form-control"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+         
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">largeur de canal:</label>
+            <br>
+            <input [(ngModel)]="dim.largeurdecanal" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Coefmanning:</label>
+            <br>
+            <input [(ngModel)]="dim.coefmanning" type="number" pInputText class="form-control"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Pente:</label>
+            <br>
+            <input [(ngModel)]="dim.pente" type="number" pInputText class="form-control"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Talus:</label>
+            <br>
+            <input [(ngModel)]="dim.talus" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
+          </div>
+
+           <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Y0:</label>
+            <br>
+            <input [(ngModel)]="dim.y0" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Revanche:</label>
+            <br>
+            <input [(ngModel)]="dim.revanche" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Base de canal:</label>
+            <br>
+            <input [(ngModel)]="dim.b" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
+          </div>
 
 
-    $('#sidebarCollapse').on('click', function () {
-      $('#sidebar, #content').toggleClass('active');
-      $('.collapse.in').toggleClass('in');
-      $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-    });
-  });
-</script>
+
+          <button class="btn btn-success" type="submit">Modifier</button>
+
+
+
+        </form>
+      </div>
+      <div [style]="{width: '300px'}">
+        <br><br><br>
+
+      </div>
+    </div>
+  </div>
+
+</p-dialog>
+
+
+
+
+<!-- calcule dim -->
+
+
+
+
+
+  <p-dialog  header= "Calculer dimensionnement " [(visible)]="displayCalcule" 
+[style]="{width: '50vw'}" [baseZIndex]="10000"  >
+  <div class="container">
+  
+    <div class="panel panel-default" >
+  
+      <div class="panel-body" *ngIf="calcule" >
+        <form *ngIf="!isSuccessful"
+              name="form"
+              
+              #f="ngForm"
+              novalidate>
+              <div class="ui-fluid p-formgrid p-grid">
+              
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Canals</label>
+                <br>
+                <input [(ngModel)]="calcule.canals" class="form-control" type="text" class="form-control"
+                [ngModelOptions]="{standalone: true}">
+              
+              </div>
+              <div class="p-field p-col-12 p-md-3">
+                <label for="bday">NœudAmont</label>
+                <br>
+               <input [(ngModel)]="calcule.namont" class="form-control" type="text" class="form-control"
+              [ngModelOptions]="{standalone: true}">
+
+              </div>
+              <div class="p-field p-col-12 p-md-3">
+                <label for="bday">NœudAval</label>
+                <br>
+                <input [(ngModel)]="calcule.naval"  class="form-control" type="text"  class="form-control"
+              #f2="ngModel" required
+                                 minlength="2"
+                                 maxlength="200" name="f2" ngModel >
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">DebitUnitaire</label>
+                <br>
+                <input [(ngModel)]="calcule.debitunitaire"
+                  placeholder="DebitUnitaire..." type="number" pInputText class="form-control"
+                  #f3="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f3" ngModel>
+              </div>
+        
+            
+        
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Surface</label>
+                <br>
+                <input [(ngModel)]="calcule.surface"  placeholder="Surface..." type="number"
+                 pInputText class="form-control"  
+                 #f4="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f4" ngModel>
+              </div>
+        
+        
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">LargeurDeCanal</label>
+                <br>
+                <input [(ngModel)]="calcule.largeurdecanal"  placeholder="LargeurDeCanal..." type="number" 
+                pInputText class="form-control"  
+                 #f5="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f5" ngModel>
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">CoefManning</label>
+                <br>
+                <input [(ngModel)]="calcule.coefmanning"  placeholder="CoefManning..." type="number" 
+                pInputText class="form-control" 
+                 #f5="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f6" ngModel>
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Pente</label>
+                <br>
+                <input [(ngModel)]="calcule.pente"  placeholder="Pente..." type="number"
+                 pInputText class="form-control"  
+                 #f6="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f7" ngModel>
+            
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Talus</label>
+                <br>
+                <input [(ngModel)]="calcule.talus"  placeholder="Talus..." type="number" 
+                pInputText class="form-control"  
+                 #f6="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f8" ngModel>
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Y0</label>
+                <br>
+                <input [(ngModel)]="calcule.y0"  placeholder="Y0..." type="number" 
+                pInputText class="form-control"  
+                 #f6="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f9" ngModel>
+        
+              </div>
+        
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Revanche</label>
+                <br>
+                <input [(ngModel)]="calcule.revanche"  type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f10" ngModel>
+        
+              </div>
+
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Base de canal</label>
+                <br>
+                <input [(ngModel)]="calcule.b"   type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f11" ngModel>
+        
+              </div>
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Hauteur d'eaux (yn)
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+                </label>
+                <br>
+                <input [(ngModel)]="calcule.yn"   type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f12" ngModel  >
+                                 
+        
+              </div>
+
+            <!--  <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">hretunue</label>
+                <br>
+                <input [(ngModel)]="calcule.hretunue"   type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f13" ngModel>
+        
+              </div>
+              -->
+
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Vitesse
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                    <path
+                      d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                  </svg>
+                </label>
+                <br>
+                <input [(ngModel)]="calcule.vitesse"   type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f14" ngModel>
+        
+              </div>
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Débit
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                    <path
+                      d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                  </svg>
+                </label>
+                <br>
+                <input [(ngModel)]="calcule.q" type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f15" ngModel>
+        
+              </div>
+              <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">Section
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                    <path
+                      d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                  </svg>
+                </label>
+                <br>
+                <input [(ngModel)]="calcule.section"   type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f16" ngModel>
+        
+              </div>
+              </div>
+           
+
+              <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255); margin-left: 530px; width: 90px;" (click)="calculerDebit(calcule.id)">Debit
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                <path
+                  d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+              </svg>
+              </button>&nbsp; &ensp; &ensp;&ensp; 
+             
+              <button class="btn btn-success"  style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255); width: 90px;"  (click)="calculerYn(calcule.id)">yn
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                <path
+                  d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+              </svg>
+              </button>&nbsp; &ensp; &ensp;&ensp;
+
+              <button  class="btn btn-success" icon="pi pi-cal" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255) ; width: 100px;"   (click)="calculerSection(calcule.id)">Section
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                <path
+                  d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+              </svg>
+              </button>&nbsp; &ensp; &ensp;&ensp;
+              <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255); width: 100px;"    (click)="calculerVitesse(calcule.id)">Vitesse
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                <path
+                  d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+              </svg>
+              </button> 
+        
+           
+      </form>
+        </div>
+      <div [style]="{width: '300px'}"  >
+        <br><br><br>
+  
+      </div>
+    </div>
+  </div>
+  
+  </p-dialog>
+</div>

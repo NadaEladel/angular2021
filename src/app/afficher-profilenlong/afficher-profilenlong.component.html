@@ -1,237 +1,861 @@
-<div class="container"> <!-- Links -->
-  <nav id="sidebar">
-    
-    <ul class="list-unstyled components">
-<br> <br>
-      <li>
-        <a href="/dims" routerLink="/dims">Dimensionnement </a>
-
-      </li>
-      <br>
-      <li>
-        <a href="/profils" routerLink="/profils">Profil </a>
-      </li>
-      <br>
-     
-
-    </ul>
-
-
-  </nav>
-  <br> <br>
-
-  <!-- Page Content Holder -->
-  <div id="content">
-
-    
-<p-toast></p-toast>
-<div class="pt-4">
-    <h2 class="p-m-0">Profil en long List </h2>
-    <br>
-    <div class="card">
-
-    <p-toolbar styleClass="p-mb-4" class="pt-4">
-        <!--  -->
-        <ng-template pTemplate="left">
-          <div>
-          <button pButton pRipple label="Ajout" icon="pi pi-plus" 
-          class="p-button-danger p-mr-2" [disabled]="for.invalid" (click)="openNew()"></button>
-        </div> 
-        </ng-template>
-        <ng-template pTemplate="right">
-
-        </ng-template>
-      </p-toolbar>
-
-      <p-table #dt [value]="tabs" [rows]="10" [paginator]="true" [globalFilterFields]="['canals','namont','naval','hauteurchute','nombredechute','chute','longueur','cotetnamont','cotetnaval']" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between ">
-                <span class="p-input-icon-left ">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." />
-                </span>
-            </div>
-        </ng-template>
-      <ng-template pTemplate="header">
-          <tr>
-
-               
-            <th pSortableColumn="canals">Canals
-              <p-sortIcon field="canals"></p-sortIcon>
-          </th>
-          <th pSortableColumn="namont">Nœud Amont
-            <p-sortIcon field="namont"></p-sortIcon>
-        </th>
-        <th pSortableColumn="naval">Nœud Aval
-          <p-sortIcon field="naval"></p-sortIcon>
-      </th>
-      <th pSortableColumn="hauteurchute">Hauteur chute(m)
-        <p-sortIcon field="hauteurchute"></p-sortIcon>
-    </th>
-    <th pSortableColumn="nombredechute">Nombre de chute(m)
-      <p-sortIcon field="nombredechute"></p-sortIcon>
-  </th>
-  <th pSortableColumn="chute">Chute(m)
-    <p-sortIcon field="chute"></p-sortIcon>
-</th>
-<th pSortableColumn="longueur">Longueur()
-  <p-sortIcon field="longueur"></p-sortIcon>
-</th>
-<th pSortableColumn="modifier">Modifier
-  <p-sortIcon field="modifier"></p-sortIcon>
-</th>
-<th pSortableColumn="supprimer">Supprimer
-<p-sortIcon field="suprimer"></p-sortIcon>
-</th>
-<th>
-<i class="pi pi-angle-double-down" style="font-size: 2rem"></i>
-
-</th>  
-            </tr> 
-        </ng-template> 
-        <ng-template pTemplate="body" let-profil>
-            <tr>
-               
-              <td>{{profil.canals}}</td>
-              <td>{{profil.namont}}</td>
-              <td>{{profil.naval}}</td>
-              <td>{{profil.hauteurchute}}</td>
-              <td>{{profil.nombredechute}}</td>
-              <td>{{profil.chute}}</td>
-              <td>{{profil.longueur}}</td>
-             
-              <td><a class="btn btn-success" (click)="onEdit(profil)">
-                <div class="fa fa-fw fa-edit"></div> Modifier</a></td>
-
-              <td><a class="btn btn-danger" (click)="onDelete(profil.id)">
-                <div class="fa fa-fw fa-eraser"></div>Supprimer</a></td>
-          
-                <td>
-
-                  <button pButton pRipple (click)="showDialog()" icon="pi pi-plus" class="p-button-danger p-mr-2" label="Show"></button>
-                  <p-dialog  header="Title" [style]="{width: '600px'}" [(visible)]="display">
-                    <p-accordion>
-                      <p-accordionTab header="Cote tn amont(m)">
-                        {{profil.cotetnamont}}
-                    </p-accordionTab>
-                    <p-accordionTab header="Cote tn aval(m)">
-                        {{profil.cotetnaval}}                     
-                    </p-accordionTab>
-
-                    </p-accordion>
- 
-                    </p-dialog>
-                  </td>
-           
-               
-              
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                Au total, il y a {{tabs ? tabs.length : 0 }} des profil en long.
-            </div>
-        </ng-template>
-    </p-table>
-  <p-dialog [(visible)]="ajoutInf" [style]="{width: '800px'}" header="Ajouter profil en long" [modal]="true" styleClass="p-fluid">
-
-
-      <app-ajouter-profilenlong *ngIf="ajoutInf==true" [form]=" for "></app-ajouter-profilenlong>
-    </p-dialog>
-
-
-</div>
-
-
-<p-dialog header="modifier profil en long " [(visible)]="display1" 
-[style]="{width: '50vw'}" [baseZIndex]="10000">
-  <div class="container">
-  
-    <div class="panel panel-default" >
-  
-      <div class="panel-body" *ngIf="profil" >
-           <!--    <form *ngIf="!isSuccessful"
-              name="form"
-              (ngSubmit)="f.form.valid && onupdateprod(f.value)"
-              #f="ngForm"
-              novalidate>
-          <div class="form-group">
-  
-            <label for="usernameupdate" class="control-label"> Name</label>
-  
-            <input id="usernameupdate" class="form-control"
-                   required
-                   minlength="3"
-                   maxlength="20"
-                   #username="ngModel" type="text" name="name" ngModel [(ngModel)]="currentprod.name">
-          </div>
-          <div class="alert-danger" *ngIf="f.submitted && username.invalid">
-            <div *ngIf="username.errors.required">Username is required</div>
-            <div *ngIf="username.errors.minlength">
-              Username must be at least 3 characters
-            </div>
-            <div *ngIf="username.errors.maxlength">
-              Username must be at most 20 characters
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="descriptionsupdate" > Description</label>
-            <textarea id="descriptionsupdate"   #descriptions="ngModel" required
-                      minlength="3"
-                      maxlength="2000" class="form-control" type="text" name="description" ngModel [(ngModel)]="currentprod.description"></textarea>
-          </div>
-          <div class="alert-danger" *ngIf="f.submitted && descriptions.invalid">
-            <div *ngIf="descriptions.errors.required">description is required</div>
-            <div *ngIf="descriptions.errors.minlength">
-              description must be at least 3 characters
-            </div>
-            <div *ngIf="descriptions.errors.maxlength">
-              description must be at most 20 characters
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="quantiteupdate" class="control-label"> Quantite</label>
-            <input id="quantiteupdate" class="form-control"  required type="number" name="quantite" #quantite="ngModel" ngModel [(ngModel)]="currentprod.quantite">
-          </div>
-          <div class="alert-danger" *ngIf="f.submitted && quantite.invalid">
-            <div *ngIf="quantite.errors.required">quantite is required</div></div>
-          <label>Choisissez une categorie</label>
-          <select  [(ngModel)]="currentprod.categorie" name="categorie" (change)="selected()">
-            <option *ngFor="let food of equipes" [value]="food.value"  >
-              {{food.viewValue}}
-            </option>
-          </select>
-          <button class="btn btn-success" type="submit" >update</button>
-          <br> <br>
-        </form>
-      -->
-   
+<button mat-icon-button (click)="drawer.toggle()">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-nav-list>
+      <div class="profile-card">
+        <div class="header">
+          <h2>Nada ElAdel</h2>
+          <h4>nada.eladel@esprit.tn</h4>
         </div>
-      <div [style]="{width: '300px'}"  >
-        <br><br><br>
+        <img src="../../../assets/image/adminrole.png" style="width:190px;margin-left:50px;height:200px;">
+      </div>
+
+      <mat-divider></mat-divider>
+
+    <h2 matSubheader>Pages</h2>
+    
+    <a mat-list-item routerLink="/admin/noteadmin">Affichage de note </a>
+    <a mat-list-item routerLink="/admin/plan1">Gestion des plans </a>
+    <a mat-list-item routerLink="/admin/stat">Statistique</a>
+    <a mat-list-item routerLink="/admin/recherche">Rechercher</a>
+
+      <a mat-list-item href="/noteadmin" routerLink="/noteadmin">affichage de la note </a>
+
+
+
+
+      <mat-divider></mat-divider>
+
+      <h2 matSubheader>Tools</h2>
+
+
+    </mat-nav-list>
+  </mat-drawer>
+
+
+
+
+  <div class="example-sidenav-content" style="margin-top: -1000px">
+
+  </div>
+  <div>
+
+
+    <p-card header="Detail Profil en long" [style]="{'width': '1500px','margin-left':'300px'}"
+      styleClass="p-card-shadow" *ngIf="show">
+      <ng-template pTemplate="header">
+        <img alt="Card" [style]="{'height': '150px'}" src="assets/image/bleu.jpg">
+      </ng-template>
+      <div *ngFor="let t of tabs">
+        <div class="p-grid p-fluid">
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">Canals</label>
+            <br>
+
+
+            <output class="form-control"> {{t.canals}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">Namont</label>
+            <br>
+
+
+            <output class="form-control"> {{t.namont}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">Naval</label>
+            <br>
+
+
+            <output class="form-control"> {{t.naval}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">hauteurchute</label>
+            <br>
+
+
+            <output class="form-control"> {{t.hauteurchute}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">nombredechute</label>
+            <br>
+
+
+            <output class="form-control"> {{t.nombredechute}}</output>
+
+          </div>
+
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">Chute</label>
+            <br>
+
+
+            <output class="form-control"> {{t.chute}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">longueur</label>
+            <br>
+
+
+            <output class="form-control"> {{t.longueur}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">cotetnamont</label>
+            <br>
+
+
+            <output class="form-control"> {{t.cotetnamont}}</output>
+
+          </div>
+
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">cotetnaval</label>
+            <br>
+
+
+            <output class="form-control"> {{t.cotetnaval}}</output>
+
+          </div>
+
+
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">Coeficient</label>
+            <br>
+
+
+            <output class="form-control"> {{t.coeficient}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">Acceleration</label>
+            <br>
+
+
+            <output class="form-control"> {{t.acceleration}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">hauteurdechutetotal</label>
+            <br>
+
+
+            <output class="form-control"> {{t.hauteurdechutetotal}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">coteprojetamont</label>
+            <br>
+
+
+            <output class="form-control"> {{t.coteprojetamont}}</output>
+
+          </div>
+
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">coteprojetaval</label>
+            <br>
+
+
+            <output class="form-control"> {{t.coteprojetaval}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">profondeur</label>
+            <br>
+
+
+            <output class="form-control"> {{t.profondeur}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">pertedechargelineaire</label>
+            <br>
+
+
+            <output class="form-control"> {{t.pertedechargelineaire}}</output>
+
+          </div>
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">pertedechargesinguliaire</label>
+            <br>
+
+
+            <output class="form-control"> {{t.pertedechargesinguliaire}}</output>
+
+          </div>
+
+
+
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">coteplushauteeauamont</label>
+            <br>
+
+
+            <output class="form-control"> {{t.coteplushauteeauamont}}</output>
+
+          </div>
+          <div class="p-col-12 p-md-6">
+            <label for="firstname6">Cote eau aval</label>
+            <br>
+
+
+            <output class="form-control"> {{t.coteplushauteeauaval}}</output>
+
+          </div>
+
+
+        </div>
+
+        <br>
+        <br>
+       <!--<p-button label="Modifier" icon="pi pi-check" (click)="onEdit(t)"></p-button>-->
+                <button class="btn btn-success" type="submit" (click)="onEdit(t)" style="width: 130px;">Modifier
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
   
+                  viewBox="0 0 16 16">
+  
+                  <path
+   
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+  
+                  <path fill-rule="evenodd"
+   
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+
+                </svg>
+
+                </button>
+                <button class="btn btn-danger" type="submit" (click)="onDelete(t.id)" style="margin-inline: 20px;width: 130px;">Supprimer
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                  <path fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                </svg>
+                </button>
+                <button  class="btn btn-danger" type="submit" (click)="calculer(t.id)" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255); margin-inline: 10px; width: 130px;" >Calculer
+                  
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                    <path
+                      d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                  </svg>
+                </button>
+       <!--  <p-button label="Supprimer" icon="pi pi-times" styleClass="p-button-secondary"
+          [style]="{'margin-left': '.5em'} " (click)="onDelete(t.id)"></p-button>
+        <p-button label="Calculer" icon="pi pi-check" [style]="{'margin-left': '.5em'}" (click)="calculer(t.id)">
+        </p-button> -->
+
+      </div>
+
+
+      <!--  <ng-template pTemplate="footer">
+        <p-button label="Modifier" icon="pi pi-check"></p-button>
+        <p-button label="Supprimer" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" (click)="onDelete(1)"></p-button>
+        <p-button label="calculer" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+    </ng-template>
+ -->
+
+    </p-card>
+
+    <!-- card ajout -->
+
+
+
+    <p-card header="Ajouter Profil en Long" [style]="{'width': '1500px','margin-left':'300px'}"
+      styleClass="p-card-shadow" *ngIf="show1">
+      <ng-template pTemplate="header">
+        <img alt="Card" [style]="{'height': '150px'}" src="assets/image/bleu.jpg">
+      </ng-template>
+      <form [formGroup]="ajoutinf" #ajc="ngForm">
+
+        <div class="p-fluid p-formgrid p-grid">
+
+
+
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Hauteur de chute(m)</label>
+            <br>
+            <input formControlName="hauteurchute" placeholder="hauteurchute..." type="number" pInputText
+              class="form-control">
+          </div>
+
+
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Nombre de chute(m)</label>
+            <br>
+            <input formControlName="nombredechute" placeholder="nombredechute..." type="number" pInputText
+              class="form-control">
+          </div>
+
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">chute(m)</label>
+            <br>
+            <input formControlName="chute" placeholder="chute..." type="number" pInputText class="form-control">
+
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Longueur(m)</label>
+            <br>
+            <input formControlName="longueur" placeholder="longueur..." type="number" pInputText class="form-control">
+
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Cote tn amont(m)</label>
+            <br>
+            <input formControlName="cotetnamont" placeholder="cotetnamont..." type="number" pInputText
+              class="form-control">
+
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">cote tn aval(m)</label>
+            <br>
+            <input formControlName="cotetnaval" placeholder="cotetnaval..." type="number" pInputText
+              class="form-control">
+
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Coeficient(m)</label>
+            <br>
+            <input formControlName="coeficient" placeholder="coeficient..." type="number" pInputText
+              class="form-control">
+
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="firstname6">Acceleration(m)</label>
+            <br>
+            <input formControlName="acceleration" placeholder="acceleration..." type="number" pInputText
+              class="form-control">
+
+          </div>
+
+
+
+        </div>
+        <div style="margin-left: 40%;">
+          <button class="btn btn-success" style="margin-left: 10%; width: 15%;" iconPos="p-ai-center"
+            (click)="add(ajc.value)" color="warn">Valider 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+              <path
+                d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z" />
+            </svg>
+          </button>
+        </div>
+
+
+      </form>
+
+
+      <!--  <ng-template pTemplate="footer">
+      <p-button label="Modifier" icon="pi pi-check"></p-button>
+      <p-button label="Supprimer" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" (click)="onDelete(1)"></p-button>
+      <p-button label="calculer" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+  </ng-template>
+-->
+
+    </p-card>
+
+
+
+  </div>
+</mat-drawer-container>
+
+
+<p-dialog header="Calculer profil en long " [(visible)]="displayCalcule" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <div class="container">
+
+    <div class="panel panel-default">
+
+      <div class="panel-body" *ngIf="profilenlong">
+        <form *ngIf="!isSuccessful" name="form" #f="ngForm" novalidate>
+          <div class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Canals *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.canals" class="form-control" type="text" class="form-control"
+                [ngModelOptions]="{standalone: true}">
+
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+              <label for="bday">Nœud Amont *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.namont" class="form-control" type="text" class="form-control"
+                [ngModelOptions]="{standalone: true}">
+
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+              <label for="bday">Nœud aval *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.naval" class="form-control" type="text" class="form-control"
+                [ngModelOptions]="{standalone: true}">
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Hauteur de chute *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.hauteurchute" type="number" pInputText class="form-control" #f1="ngModel"
+                 name="f1" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Nombre de chute*</label>
+              <br>
+              <input [(ngModel)]="profilenlong.nombredechute" type="number" pInputText class="form-control"
+                #f2="ngModel" required name="f2" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Chute *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.chute" placeholder="DebitUnitaire..." type="number" pInputText
+                class="form-control" #f3="ngModel" required  name="f3" ngModel>
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Longueur *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.longueur" type="number" pInputText class="form-control" #f4="ngModel"
+                required name="f4" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Cote tn amont *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.cotetnamont" placeholder="Y0..." type="number" pInputText
+                class="form-control" #f5="ngModel" required  name="f5" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Cote tn aval *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.cotetnaval" type="number" pInputText class="form-control" #f6="ngModel"
+                required  name="f6" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Coeficient *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.coeficient" placeholder="Surface..." type="number" pInputText
+                class="form-control" #f7="ngModel" required  name="f7" ngModel>
+            </div>
+
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="bday">Acceleration *</label>
+              <br>
+              <input [(ngModel)]="profilenlong.acceleration" class="form-control" type="text" class="form-control"
+                #f8="ngModel" required  name="f8" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Hauteur de chute total
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+              </label>
+              <br>
+              <input [(ngModel)]="profilenlong.hauteurdechutetotal" type="number" pInputText class="form-control"
+                #f9="ngModel" required  name="f9" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6"> Cote projet amont 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+              </label>
+              <br>
+              <input [(ngModel)]="profilenlong.coteprojetamont" placeholder="Pente..." type="number" pInputText
+                class="form-control" #f10="ngModel" required minlength="3" maxlength="2000" name="f10" ngModel>
+
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Cote projet aval
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+              </label>
+              <br>
+              <input [(ngModel)]="profilenlong.coteprojetaval" placeholder="Talus..." type="number" pInputText
+                class="form-control" #f11="ngModel" required minlength="3" maxlength="2000" name="f11" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Profondeur
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+              </label>
+              <br>
+              <input [(ngModel)]="profilenlong.profondeur" type="number" pInputText class="form-control" #f12="ngModel"
+                required minlength="3" maxlength="2000" name="f12" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Perte charge lineaire
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+              </label>
+              <br>
+              <input [(ngModel)]="profilenlong.pertedechargelineaire" type="number" pInputText class="form-control"
+                #f13="ngModel" required minlength="3" maxlength="2000" name="f13" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Perte charge singuliaire
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+              </label>
+              <br>
+              <input [(ngModel)]="profilenlong.pertedechargesinguliaire" type="number" pInputText class="form-control"
+                #f14="ngModel" required minlength="3" maxlength="2000" name="f14" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Plus haute eau amont
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+              </label>
+              <br>
+              <input [(ngModel)]="profilenlong.coteplushauteeauamont" placeholder="LargeurDeCanal..." type="number"
+                pInputText class="form-control" #f15="ngModel" required minlength="3" maxlength="2000" name="f15" ngModel>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+              <label for="firstname6">Plus haute eau aval
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                  <path
+                    d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                </svg>
+              </label>
+              <br>
+              <input [(ngModel)]="profilenlong.coteplushauteeauaval" placeholder="coteplushauteeauaval..." type="number"
+                pInputText class="form-control" #f16="ngModel" required minlength="3" maxlength="2000" name="f16" ngModel>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--     <div class="p-field p-col-12 p-md-3">
+                <label for="firstname6">naval</label>
+                <br>
+                <input [(ngModel)]="profilenlong.naval"   type="number" 
+                pInputText class="form-control" 
+                 #f7="ngModel" required
+                                 minlength="3"
+                                 maxlength="2000" name="f14" ngModel>
+        
+              </div>
+            -->
+
+
+          </div>
+
+
+          <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255);  width: 130px;" 
+           (click)="CPamount(profilenlong.id)">CPamount
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+              viewBox="0 0 16 16">
+              <path
+                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+              <path
+                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+            </svg>
+          </button>&nbsp; &ensp;
+
+
+          <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255); width: 130px;" 
+           (click)="paval(profilenlong.id)">paval
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+              viewBox="0 0 16 16">
+              <path
+                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+              <path
+                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+            </svg>
+          </button>&nbsp; &ensp;
+
+          <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255);  width: 130px;" 
+          (click)="profondeur(profilenlong.id)">profondeur
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+              viewBox="0 0 16 16">
+              <path
+                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+              <path
+                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+            </svg>
+          </button>&nbsp; &ensp;
+
+
+          <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255);  width: 130px;" 
+           (click)="lineaire(profilenlong.id)">lineaire
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+              viewBox="0 0 16 16">
+              <path
+                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+              <path
+                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+            </svg>
+          </button>
+          &nbsp; &ensp;
+       
+       
+          <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255);  width: 130px;" 
+           (click)="singuliaire(profilenlong.id)">singuliaire
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+              viewBox="0 0 16 16">
+              <path
+                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+              <path
+                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+            </svg>
+          </button>
+          &nbsp; &ensp;
+        
+        
+          <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255);  width: 130px; " 
+           (click)="hauteurch(profilenlong.id)">HauteurCh
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+              viewBox="0 0 16 16">
+              <path
+                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+              <path
+                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+            </svg>
+          </button>
+          &nbsp; &ensp;
+       
+       
+          <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255);  width: 130px; " 
+           (click)="eauamont(profilenlong.id)">eauamont
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+              viewBox="0 0 16 16">
+              <path
+                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+              <path
+                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+            </svg>
+          </button>
+
+          &nbsp; &ensp;
+
+          <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255);  width: 130px;margin-block: 20px;  " 
+          (click)="eauaval(profilenlong.id)">eauaval
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
+              viewBox="0 0 16 16">
+              <path
+                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+              <path
+                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+            </svg>
+          </button>
+
+
+
+        </form>
+      </div>
+      <div [style]="{width: '300px'}">
+        <br><br><br>
+
       </div>
     </div>
   </div>
+
+</p-dialog>
+
+
+
+<!-- MODIFIER -->
+<p-dialog header="Modifier Profil en Long " [(visible)]="displaymodif" [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <div class="container">
+
+    <div class="panel panel-default">
+     <!--  public  hauteurchute:number;
+      public  nombredechute:number ;
+      public  chute:number;
+      public  longueur:number;
+      public  cotetnamont:number;
+      public  cotetnaval:number; -->
+    
+      <div class="panel-body" *ngIf="proflong">
+        <form *ngIf="!isSuccessful" name="form" #f="ngForm" novalidate
+          (ngSubmit)="f.form.valid && onupdateprod(f.value)">
+          <div class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">Hauteur chute</label>
+              <br>
+              <input [(ngModel)]="proflong.hauteurchute" class="form-control" type="number"  class="form-control"
+                [ngModelOptions]="{standalone: true}">
+
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">Nombre de chute</label>
+              <br>
+              <input [(ngModel)]="proflong.nombredechute " class="form-control" type="number"  class="form-control"
+                [ngModelOptions]="{standalone: true}">
+                
   
-  </p-dialog>
-  <!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<!-- Bootstrap Js CDN -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- jQuery Custom Scroller CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">Chute</label>
+              <br>
+              <input [(ngModel)]="proflong.chute" class="form-control" type="number"  class="form-control"
+                [ngModelOptions]="{standalone: true}">
 
-<script type="text/javascript">
-  $(document).ready(function () {
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">Longueur</label>
+              <br>
+              <input [(ngModel)]="proflong.longueur" class="form-control" type="number" class="form-control" 
+              [ngModelOptions]="{standalone: true}">
+                
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">Cote namont</label>
+              <br>
+              <input [(ngModel)]="proflong.cotetnamont" type="number" pInputText
+                class="form-control"  [ngModelOptions]="{standalone: true}">
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">Cotetnaval</label>
+              <br>
+              <input [(ngModel)]="proflong.cotetnaval"  type="number" pInputText
+                class="form-control" [ngModelOptions]="{standalone: true}">
+            </div>
 
 
-    $('#sidebarCollapse').on('click', function () {
-      $('#sidebar, #content').toggleClass('active');
-      $('.collapse.in').toggleClass('in');
-      $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-    });
-  });
-</script>
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">Coeficient</label>
+              <br>
+              <input [(ngModel)]="proflong.coeficient"  type="number" pInputText
+                class="form-control" [ngModelOptions]="{standalone: true}">
+            </div>
 
-  
+
+            <div class="p-field p-col-12 p-md-6">
+              <label for="bday">Acceleration</label>
+              <br>
+              <input [(ngModel)]="proflong.acceleration"  type="number" pInputText
+                class="form-control" [ngModelOptions]="{standalone: true}">
+
+            </div>
+
+
+          </div>
+
+
+
+
+          <button class="btn btn-success" type="submit">Modifier</button>
+
+
+
+        </form>
+      </div>
+      <div [style]="{width: '300px'}">
+        <br><br><br>
+
+      </div>
+    </div>
+  </div>
+
+</p-dialog>

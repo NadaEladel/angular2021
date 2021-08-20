@@ -69,7 +69,7 @@ export class AfficheruserdimComponent implements OnInit {
   }
   
   save() {
-    console.log(this.tabs.values);
+    console.log(this.tabs);
     
   }
 

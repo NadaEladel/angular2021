@@ -1,6 +1,6 @@
 
 export class Dimensionnement {
-    private id: number;
+    public id: number;
     private  canals : String;
 	private  namont:String ;	
 	private naval:String ;
@@ -13,14 +13,7 @@ export class Dimensionnement {
 	private  y0:number;
 	private  revanche:number;
 
-    public getId():number {
-        return	this.id;
     
-        }
-        public setId(id: number): void {
-            this.id=id;
-    
-        }
         
 	public  getCanals():String {
 		return this.canals;

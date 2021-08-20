@@ -11,7 +11,9 @@ export class AppComponent implements OnInit {
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
+  showModeratoruser = false;
   username: string;
+  showFiller = false;
 
   constructor(private tokenStorageService: TokenStorageService) { }
 
@@ -23,6 +25,8 @@ export class AppComponent implements OnInit {
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+
+      this.showModeratoruser = this.roles.includes('ROLE_USER');
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
       this.username = user.username;

@@ -1,0 +1,52 @@
+<div class="card" style="margin-left: 10px; width: 1520px;margin-top: 240px">
+    <form class="example-form" name="form" (ngSubmit)="f.form.valid && onEdit()" #f="ngForm" novalidate>
+
+
+        <div class="col-xl-12"></div>
+        <div class="col-xl-12" style="width:1200px;color: dimgray;">
+            <div style="
+    margin-left: 50px; width:1200px;       background-color: cornflowerblue">
+                <div class="card" style="margin-top: 40px;
+         width:1200px;     border: none; background-color:white">
+                    <div class="card-body" style="
+               margin-left: 50px; margin-top: 50px;background-color: white">
+
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>StaACCCAgiaire</mat-label>
+                            <input matInput id="descriptions" required name="description" ngModel [(ngModel)]="name"
+                                aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                            <mat-autocomplete #auto="matAutocomplete">
+                            </mat-autocomplete>
+                        </mat-form-field>
+                        &nbsp;&nbsp;&nbsp;
+                        <button mat-flat-button color="primary" type="submit">Chercher</button>
+                        <br>
+                        <mat-slide-toggle [checked]="stateCtrl.disabled"
+                            (change)="stateCtrl.disabled ? stateCtrl.enable() : stateCtrl.disable()">
+                            Desactiver ?
+                        </mat-slide-toggle>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <br>
+    <div class="container">
+
+
+        <div class="panel-body" *ngIf="user" style="height: 1500px">
+            <!-- <img src="../../../assets/image/wx.jpg" style="width: 970px;margin-left:28px;height:140px;">-->
+            <br><br><br>
+            <h3>utilisateur :&nbsp;&nbsp;&nbsp; {{user?.username}}</h3>
+            <br>
+            <h3>id :&nbsp;&nbsp;&nbsp; {{user.idPlan}}</h3>
+            <br>
+            <h3>adresse :&nbsp;&nbsp;&nbsp;{{user.adresse}}</h3>
+            <br>
+
+        </div>
+    </div>
+</div>

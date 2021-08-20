@@ -1,0 +1,151 @@
+<app-board-user></app-board-user>
+
+
+        <div class="card" style="margin-left: -155px; width: 1716px;margin-top: -1857px">
+
+
+            <p-table #dt [value]="t1" [rows]="10" [paginator]="true"
+                [globalFilterFields]="['id','canals','namont','naval','hauteurchute','nombredechute','chute','longueur','cotetnamont','cotetnaval','coeficient','acceleration','hauteurdechutetotal','coteprojetamont','coteprojetaval','profondeur','pertedechargelineaire','pertedechargesinguliaire','coteplushauteeauamont','coteplushauteeauaval']"
+                [rowHover]="true" dataKey="id"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between ">
+                        <span class="p-input-icon-left ">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Rechercher..." />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+
+
+                        <th pSortableColumn="id">id
+                            <p-sortIcon field="id"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="canals">canals
+                            <p-sortIcon field="canals"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="namont">namont
+                            <p-sortIcon field="namont"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="naval">naval
+                            <p-sortIcon field="naval"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="hauteurchute">hauteurchute
+                            <p-sortIcon field="hauteurchute"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="nombredechute">nombredechute
+                            <p-sortIcon field="nombredechute"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="chute">chute
+                            <p-sortIcon field="chute"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="longueur">longueur
+                            <p-sortIcon field="longueur"></p-sortIcon>
+                        </th>
+
+                        <th pSortableColumn="cotetnamont">cotetnamont
+                            <p-sortIcon field="cotetnamont"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="cotetnaval">cotetnaval
+                            <p-sortIcon field="cotetnaval"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="coeficient">coeficient
+                            <p-sortIcon field="coeficient"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="acceleration">acceleration
+                            <p-sortIcon field="acceleration"></p-sortIcon>
+                        </th>
+                     
+
+                      
+                        <th>
+                            <i class="pi pi-angle-double-down" style="font-size: 2rem"></i>
+                        
+                        </th>
+                       
+
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-s>
+                    <tr>
+                        <td>{{s.id}}</td>
+                        <td>{{s.canals}}</td>
+                        <td>{{s.namont}}</td>
+                        <td>{{s.naval}}</td>
+                        <td>{{s.hauteurchute}}</td>
+                        <td>{{s.nombredechute}}</td>
+                        <td>{{s.chute}}</td>
+                        <td>{{s.longueur}}</td>
+                        <td>{{s.cotetnamont}}</td>
+                        <td>{{s.cotetnaval}}</td>
+                        <td>{{s.coeficient}}</td>
+                        <td>{{s.acceleration}}</td>
+<td>
+
+
+
+
+    <button pButton pRipple (click)="showDialog(profilenlong)"
+        style="color: rgb(95, 95, 95) ; background-color: rgba(209, 209, 209, 0.89); border:beige;" label="Voir plus"
+        icon="pi pi-plus"></button>
+    <p-dialog header="Détail" [style]="{width: '600px'}" [(visible)]="display">
+        <p-accordion>
+            <p-accordionTab header="hauteurdechutetotal">
+                        <td>{{s.hauteurdechutetotal}}</td>
+            </p-accordionTab>
+            <p-accordionTab header="coteprojetamont">
+                        <td>{{s.coteprojetamont}}</td>
+            </p-accordionTab>
+                <p-accordionTab header="coteprojetaval">
+                        <td>{{s.coteprojetaval}}</td>
+                </p-accordionTab>
+            <p-accordionTab header="profondeur">
+                        <td>{{s.profondeur}}</td>
+</p-accordionTab>
+
+<p-accordionTab header="pertedechargelineaire">
+                        <td>{{s.pertedechargelineaire}}</td>
+</p-accordionTab>
+
+<p-accordionTab header="pertedechargesinguliaire">
+                        <td>{{s.pertedechargesinguliaire}}</td>
+</p-accordionTab>
+
+<p-accordionTab header="coteplushauteeauamont">
+                        <td>{{s.coteplushauteeauamont}}</td>
+</p-accordionTab>
+
+<p-accordionTab header="coteplushauteeauaval">
+                        <td>{{s.coteplushauteeauaval}}</td>
+</p-accordionTab>
+
+
+
+
+
+
+
+
+
+
+
+</p-accordion>
+
+</p-dialog>
+</td>
+                        
+
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total, il y a {{t1 ? t1.length : 0 }} profil en long(s).
+                    </div>
+                </ng-template>
+            </p-table>

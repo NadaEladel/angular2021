@@ -1,0 +1,106 @@
+<button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+</button>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <mat-nav-list>
+            <div class="profile-card">
+                <div class="header">
+                    <h2>Nada ElAdel</h2>
+                    <h4>nada.eladel@esprit.tn</h4>
+                </div>
+                <img src="../../../assets/image/adminrole.png" style="width:190px;margin-left:50px;height:200px;">
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <h2 matSubheader>Pages</h2>
+
+            <a mat-list-item href="/dims" routerLink="/dims">Toutes les dimensionnements</a>
+            <a mat-list-item href="/profils" routerLink="/profils">Toutes les profils </a>
+            <a mat-list-item href="/afficheup" routerLink="/afficheup">affichage de l'image </a>
+            <a mat-list-item href="/noteadmin" routerLink="/noteadmin">affichage de la note </a>
+
+
+
+            <mat-divider></mat-divider>
+
+            <h2 matSubheader>Tools</h2>
+
+
+        </mat-nav-list>
+    </mat-drawer>
+
+    <div class="example-sidenav-content" style="margin-top: -1000px">
+
+    </div>
+    <div>
+
+        <div class="card" style="margin-left: 10px; width: 2000px;margin-top: 70px">
+
+
+    <p-table #dt [value]="t1" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['id_proposition','propositionscanner','user','type','date','validation']"
+        [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between ">
+                <span class="p-input-icon-left ">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Rechercher..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+               
+                <th pSortableColumn="id_proposition">id_proposition
+                    <p-sortIcon field="id_proposition"></p-sortIcon>
+                </th>
+                <th pSortableColumn="propositionscanner">propositionscanner
+                    <p-sortIcon field="propositionscanner"></p-sortIcon>
+                </th>
+       
+                 <th pSortableColumn="user">user
+            <p-sortIcon field="user"></p-sortIcon>
+        </th>
+                <th pSortableColumn="type">type
+                    <p-sortIcon field="type"></p-sortIcon>
+                </th>
+                <th pSortableColumn="date">date
+                    <p-sortIcon field="date"></p-sortIcon>
+                </th>
+                <th pSortableColumn="validation">validation
+                    <p-sortIcon field="validation"></p-sortIcon>
+                </th>
+        <th pSortableColumn="Télécharger">Télécharger
+            <p-sortIcon field="Télécharger"></p-sortIcon>
+        </th>
+        
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-prop>
+            <tr>
+                <td>{{prop.id_proposition}}</td>
+                <td>{{prop.propositionscanner}}</td>
+                <td>{{prop?.user?.email}}</td>
+                <td>{{prop.type}}</td>
+                <td>{{prop.date}}</td>
+                <td>{{prop.validation}}</td>
+                <td>{{prop.name}}
+                    &nbsp;&nbsp;&nbsp; <span class="material-icons" (click)="downloadFile(prop?.name)">
+                        vertical_align_bottom
+        
+        
+                    </span>
+                </td>
+        
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Au total, il y a {{t1 ? t1.length : 0 }} images(s).
+            </div>
+        </ng-template>
+        </p-table>

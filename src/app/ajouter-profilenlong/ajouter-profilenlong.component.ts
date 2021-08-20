@@ -81,7 +81,8 @@ export class AjouterProfilenlongComponent implements OnInit {
    
   
     getdata() {
-      this.PS.getProfilenlongList().subscribe(data => this.tabs = data);
+
+      this.PS.getProfilenlongList(1).subscribe(data => this.tabs = data);
     }
 
   ngOnInit(): void {
