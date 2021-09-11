@@ -112,6 +112,9 @@ import { ConsulterdimensionnementComponent } from './consulterdimensionnement/co
 import { ConsulterprofilenlongComponent } from './consulterprofilenlong/consulterprofilenlong.component';
 import { StatistiqueComponent } from './statistique/statistique.component';
 import { RechercheComponent } from './recherche/recherche.component';
+import { ConsulterdimmoderateurComponent } from './consulterdimmoderateur/consulterdimmoderateur.component';
+import { ConsulterprofilmodComponent } from './consulterprofilmod/consulterprofilmod.component';
+import { StattestComponent } from './stattest/stattest.component';
 
 
 @NgModule({
@@ -143,7 +146,10 @@ import { RechercheComponent } from './recherche/recherche.component';
     ConsulterdimensionnementComponent,
     ConsulterprofilenlongComponent,
     StatistiqueComponent,
-    RechercheComponent
+    RechercheComponent,
+    ConsulterdimmoderateurComponent,
+    ConsulterprofilmodComponent,
+    StattestComponent
     ],
   imports: [
 

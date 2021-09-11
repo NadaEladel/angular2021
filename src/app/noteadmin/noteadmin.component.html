@@ -39,130 +39,130 @@
     </div>
     <div>
 -->
-        <div class="card" style="margin-left: 10px; width: 2000px;margin-top: 70px">
+<div class="card" style="margin-left: 10px; width: 2000px;margin-top: 70px">
 
 
-            <p-table #dt [value]="t1" [rows]="10" [paginator]="true"
-                [globalFilterFields]="['id_note','description','notescanner','usernote','type','date','objet']"
-                [rowHover]="true" dataKey="id"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [showCurrentPageReport]="true">
-                <ng-template pTemplate="caption">
-                    <div class="p-d-flex p-ai-center p-jc-between ">
-                        <span class="p-input-icon-left ">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                                placeholder="Rechercher..." />
-                        </span>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th pSortableColumn="id">id
-                            <p-sortIcon field="id_note"></p-sortIcon>
-                        </th>
-
-                     
-                        <th pSortableColumn="description">Description
-                            <p-sortIcon field="description"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="notescanner">Notescanner
-                            <p-sortIcon field="notescanner"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="email">Email
-                            <p-sortIcon field="email"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="type">Type
-                            <p-sortIcon field="type"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="date">Date
-                            <p-sortIcon field="date"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="objet">Objet
-                            <p-sortIcon field="objet"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="name">Télecharger
-                            <p-sortIcon field="name"></p-sortIcon>
-                        </th>
-                    
-<th pSortableColumn="theme">Statut
-    <p-sortIcon field="theme"></p-sortIcon>
-</th>
-                        <th pSortableColumn="dateDebut">Traiter
-                            <p-sortIcon field="dateDebut"></p-sortIcon>
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-s>
-                    <tr>
-                    <td>{{s.id_note}}</td>
-                        <td>{{s.description}}</td>
-                        <td>{{s.notescanner}}</td>
-                        <td>{{s.usernote.email}}</td>
-                        <td>{{s.type}}</td>
-                        <td>{{s.date}}</td>
-                        <td>{{s.objet}}</td>
-                        <td>{{s.nom}}
-<span class="material-icons" (click)="downloadFile(s?.nom)">
-    vertical_align_bottom
-
-
-</span>
-</td>
-                                                   <td>{{s.statut}}</td>
-
-    
-    <td><a class="btn btn-danger" (click)="onEdit(s.id_note)" style="background-color: darkseagreen">
-        <div class="fa fa-fw fa-eraser"></div>Traiter
-    </a>
-    </td>
-    
-                                                </tr>
-                </ng-template>
-                <ng-template pTemplate="summary">
-                    <div class="p-d-flex p-ai-center p-jc-between">
-                        Au total, il y a {{t1 ? t1.length : 0 }} images(s).
-                    </div>
-                </ng-template>
-            </p-table>
-<p-dialog [(visible)]="traiter" [style]="{width: '450px'} " [modal]="true" styleClass="p-fluid" [baseZIndex]="70000">
-    <div class="container">
-        <h3 style="color: #28587B;margin-left: 50px">Entrer le motif de rejet </h3>
-        <div class="panel-body" *ngIf="currentprod">
-
-            <div class="panel-body">
-                <form name="form" (ngSubmit)="f.form.valid && onupdateprod()" #f="ngForm" novalidate>
-                    <div class="form-group">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Réponse </mat-label>
-                            <textarea type="text" matInput #ade="ngModel" minlength="10" maxlength="2000" name="ade"
-                                ngModel [(ngModel)]="text">
-                  </textarea>
-                        </mat-form-field>
-                    </div>
-
-
-
-
-                    <div class="alert-danger" *ngIf="f.submitted && ade.invalid">
-                        <div *ngIf="ade.errors.minlength">
-                            réponse must be at least 10 characters
-                        </div>
-                        <div *ngIf="ade.errors.maxlength">
-                            réponse must be at most 20 characters
-                        </div>
-                    </div>
-                    <button class="btn btn-success" type="submit" style="background-color:indigo; margin-left: 50px"
-                        (click)="onupdateprod()">Envoyer</button>
-                    <br> <br>
-                    <div class="alert alert-light" role="alert">{{ message }}</div>
-                </form>
+    <p-table #dt [value]="t1" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['id_note','description','notescanner','usernote','type','date','objet']"
+        [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between ">
+                <span class="p-input-icon-left ">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Rechercher..." />
+                </span>
             </div>
-            <div [style]="{width: '300px'}">
-                <br><br><br>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">id
+                    <p-sortIcon field="id_note"></p-sortIcon>
+                </th>
 
+
+                <th pSortableColumn="description">Description
+                    <p-sortIcon field="description"></p-sortIcon>
+                </th>
+                <th pSortableColumn="notescanner">Notescanner
+                    <p-sortIcon field="notescanner"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email">Email
+                    <p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th pSortableColumn="type">Type
+                    <p-sortIcon field="type"></p-sortIcon>
+                </th>
+                <th pSortableColumn="date">Date
+                    <p-sortIcon field="date"></p-sortIcon>
+                </th>
+                <th pSortableColumn="objet">Objet
+                    <p-sortIcon field="objet"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name">Télecharger
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+
+                <th pSortableColumn="theme">Statut
+                    <p-sortIcon field="theme"></p-sortIcon>
+                </th>
+                <th pSortableColumn="dateDebut">Traiter
+                    <p-sortIcon field="dateDebut"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-s>
+            <tr>
+                <td>{{s.id_note}}</td>
+                <td>{{s.description}}</td>
+                <td>{{s.notescanner}}</td>
+                <td>{{s.usernote.email}}</td>
+                <td>{{s.type}}</td>
+                <td>{{s.date}}</td>
+                <td>{{s.objet}}</td>
+                <td>{{s.nom}}
+                    <span class="material-icons" (click)="downloadFile(s?.nom)">
+                        vertical_align_bottom
+
+
+                    </span>
+                </td>
+                <td>{{s.statut}}</td>
+
+
+                <td><a class="btn btn-danger" (click)="onEdit(s.id_note)" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255);">
+                        <div class="fa fa-fw fa-eraser"></div>Traiter
+                    </a>
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Au total, il y a {{t1 ? t1.length : 0 }} notes(s).
+            </div>
+        </ng-template>
+    </p-table>
+    <p-dialog [(visible)]="traiter" [style]="{width: '450px'} " [modal]="true" styleClass="p-fluid"
+        [baseZIndex]="70000">
+        <div class="container">
+            <h3 style="color: #28587B;margin-left: 50px">traitement de la note </h3>
+            <div class="panel-body" *ngIf="currentprod">
+
+                <div class="panel-body">
+                    <form name="form" (ngSubmit)="f.form.valid && onupdateprod()" #f="ngForm" novalidate>
+                        <div class="form-group">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Réponse </mat-label>
+                                <textarea type="text" matInput #ade="ngModel" minlength="10" maxlength="2000" name="ade"
+                                    ngModel [(ngModel)]="text">
+                  </textarea>
+                            </mat-form-field>
+                        </div>
+
+
+
+
+                        <div class="alert-danger" *ngIf="f.submitted && ade.invalid">
+                            <div *ngIf="ade.errors.minlength">
+                                réponse must be at least 10 characters
+                            </div>
+                            <div *ngIf="ade.errors.maxlength">
+                                réponse must be at most 20 characters
+                            </div>
+                        </div>
+                        <button class="btn btn-success" type="submit" style="background-color:indigo; margin-left: 50px"
+                            (click)="onupdateprod()">Envoyer</button>
+                        <br> <br>
+                        <div class="alert alert-light" role="alert">{{ message }}</div>
+                    </form>
+                </div>
+                <div [style]="{width: '300px'}">
+                    <br><br><br>
+
+                </div>
             </div>
         </div>
-    </div>
 
-</p-dialog>
+    </p-dialog>

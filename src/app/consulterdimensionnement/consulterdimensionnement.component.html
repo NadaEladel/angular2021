@@ -1,11 +1,11 @@
 <app-board-user></app-board-user>
-
   
+    
     <div>
-
+    
         <div class="card" style="margin-left: -155px; width: 1716px;margin-top: -1857px">
-
-
+    
+    
             <p-table #dt [value]="t1" [rows]="10" [paginator]="true"
                 [globalFilterFields]="['id','canals','namont','naval','debitunitaire','surface','largeurdecanal','coefmanning','pente','talus','y0','revanche','b','yn','vitesse','q','section']"
                 [rowHover]="true" dataKey="id"
@@ -22,8 +22,8 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-
-
+    
+    
                         <th pSortableColumn="id">id
                             <p-sortIcon field="id"></p-sortIcon>
                         </th>
@@ -36,25 +36,25 @@
                         <th pSortableColumn="naval">naval
                             <p-sortIcon field="naval"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="debitunitaire">debitunitaire
-                            <p-sortIcon field="debitunitaire"></p-sortIcon>
+                        <th pSortableColumn="y,">Yn
+                            <p-sortIcon field="yn"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="surface">surface
-                            <p-sortIcon field="surface"></p-sortIcon>
+                        <th pSortableColumn="section">Section
+                            <p-sortIcon field="section"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="largeurdecanal">largeurdecanal
-                            <p-sortIcon field="largeurdecanal"></p-sortIcon>
+                        <th pSortableColumn="debit">Debit
+                            <p-sortIcon field="debit"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="coefmanning">coefmanning
-                            <p-sortIcon field="coefmanning"></p-sortIcon>
+                        <th pSortableColumn="vitesse">Vitesse
+                            <p-sortIcon field="vitesse"></p-sortIcon>
                         </th>
-
-                     
+    
+    
                         <th>
                             <i class="pi pi-angle-double-down" style="font-size: 2rem"></i>
-                        
+    
                         </th>
-                   
+    
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-s>
@@ -63,68 +63,74 @@
                         <td>{{s.canals}}</td>
                         <td>{{s.namont}}</td>
                         <td>{{s.naval}}</td>
-                        <td>{{s.debitunitaire}}</td>
-                        <td>{{s.surface}}</td>
-                        <td>{{s.largeurdecanal}}</td>
-                        <td>{{s.coefmanning}}</td>
-
-<td>
-
-
-
-
-    <button pButton pRipple (click)="showDialog(dim)"
-        style="color: rgb(95, 95, 95) ; background-color: rgba(209, 209, 209, 0.89); border:beige;" label="Voir plus"
-        icon="pi pi-plus"></button>
-    <p-dialog header="Détail" [style]="{width: '600px'}" [(visible)]="display">
-        <p-accordion>
-            <p-accordionTab header="pente">
-                        <td>{{s.pente}}</td>
-</p-accordionTab>
-<p-accordionTab header="talus">
-                        <td>{{s.talus}}</td>
-</p-accordionTab>
-<p-accordionTab header="y0">
-                        <td>{{s.y0}}</td>
-</p-accordionTab>
-<p-accordionTab header="revanche">
-                        <td>{{s.revanche}}</td>
-</p-accordionTab>
-
-<p-accordionTab header="base de canal">
-                        <td>{{s.b}}</td>
-</p-accordionTab>
-
-<p-accordionTab header="yn">
                         <td>{{s.yn}}</td>
-</p-accordionTab>
-
-<p-accordionTab header="section">
-                    <td>{{s.section}}</td>
-</p-accordionTab>
-
-<p-accordionTab header="debit">
+                        <td>{{s.section}}</td>
                         <td>{{s.q}}</td>
-</p-accordionTab>
-<p-accordionTab header="vitesse">
                         <td>{{s.vitesse}}</td>
-</p-accordionTab>
-
-
-
-
-
-
-
-
-
-
-
-</p-accordion>
-
-</p-dialog>
-</td>
-
+    
+    
+                        <td>
+    
+    
+    
+    
+                            <button pButton pRipple (click)="showDialog(dim)"
+                                style="color: rgb(78, 77, 77) ; background-color: rgba(37, 105, 231, 0.89); border:beige;"
+                                label="Voir plus" icon="pi pi-plus"></button>
+                            <p-dialog header="Détail" [style]="{width: '600px'}" [(visible)]="display">
+                                <p-accordion>
+                                    <p-accordionTab header="pente">
+                        <td>{{s.pente}}</td>
+                        </p-accordionTab>
+                        <p-accordionTab header="talus">
+                            <td>{{s.talus}}</td>
+                        </p-accordionTab>
+                        <p-accordionTab header="y0">
+                            <td>{{s.y0}}</td>
+                        </p-accordionTab>
+                        <p-accordionTab header="revanche">
+                            <td>{{s.revanche}}</td>
+                        </p-accordionTab>
+    
+                        <p-accordionTab header="base de canal">
+                            <td>{{s.b}}</td>
+                        </p-accordionTab>
+    
+                        <p-accordionTab header="debitunitaire">
+                            <td>{{s.debitunitaire}}</td>
+    
+                        </p-accordionTab>
+    
+                        <p-accordionTab header="surface">
+                            <td>{{s.surface}}</td>
+    
+                        </p-accordionTab>
+    
+                        <p-accordionTab header="largeurdecanal">
+                            <td>{{s.largeurdecanal}}</td>
+    
+                        </p-accordionTab>
+                        <p-accordionTab header="coefmanning">
+    
+                            <td>{{s.coefmanning}}</td>
+    
+                        </p-accordionTab>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                        </p-accordion>
+    
+                        </p-dialog>
+                        </td>
+    
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="summary">

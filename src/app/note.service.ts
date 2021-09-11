@@ -16,14 +16,14 @@ export class NoteService {
       const formdata: FormData = new FormData();
       formdata.append('txt', txt);
 
-      const req = new HttpRequest('PUT', this.host + 'rec/' + id_note + '/' + txt, {
+      const req1 = new HttpRequest('PUT', this.host + 'rec/' + id_note + '/' + txt, {
         reportProgress: true,
-        responseType: 'text'
+        
       });
 
-      return this.httpClient.request(req);
+      return this.httpClient.request(req1);
     }
-
+  
   
   rec(obj: string, desc: string, file: File, id: number): Observable<HttpEvent<{}>> {
     
@@ -40,16 +40,16 @@ export class NoteService {
     return this.httpClient.request(req);
   }
 
-  notetraiter(id_note, txt): Observable<HttpEvent<{}>> {
+  notetraiter(id_note : number,txt: string): Observable<HttpEvent<{}>> {
     console.log(id_note);
     const formdata: FormData = new FormData();
     formdata.append('txt', txt);
 
-    const req = new HttpRequest('PUT', this.host + 'rec/' + id_note, formdata, {
+    const req1 = new HttpRequest('PUT', this.host + 'rec/' + id_note, formdata, {
       reportProgress: true
     });
 
-    return this.httpClient.request(req);
+    return this.httpClient.request(req1);
   }
 
   allnotes(): Observable<any> {

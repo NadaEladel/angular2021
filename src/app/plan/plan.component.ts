@@ -60,8 +60,8 @@ export class PlanComponent implements OnInit {
 
 
 
-
     })
+    this.getdata();
 
    }
 
@@ -89,6 +89,9 @@ export class PlanComponent implements OnInit {
   this.ajoutInf = true;
    //this.show1=true;
 
+     this.getdata();
+
+
   }
   hideDialog() {
     this.infDialog = false;
@@ -98,10 +101,15 @@ export class PlanComponent implements OnInit {
 
   showDialog() {
     this.display = true;
+    this.getdata();
+
 }
 
 save() {
   console.log(this.tabs);
+  this.getdata();
+
+
   
 }
  
@@ -110,7 +118,7 @@ save() {
   getdata() {
  
     this.planService.allnotes().subscribe(data => this.tabs = data);
-  
+
  
   }
   
@@ -140,6 +148,7 @@ save() {
     }, error => {
 
       console.log(error);
+      this.getdata
     });
   }
  

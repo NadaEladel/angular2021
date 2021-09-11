@@ -33,7 +33,7 @@ export class AuthService {
 
   //updateUserPassword
   ///update/{id}
-  update(id, data): Observable<any> {
+  update( data,id): Observable<any> {
     return this.http.put(AUTH_API + 'update/' + id, data);
   }
   ///updateUser/{id}

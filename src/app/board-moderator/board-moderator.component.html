@@ -1,5 +1,80 @@
-<div class="container">
-  <header class="jumbotron">
+<!--<div class="container">
+  <header class="jumbotron" style="width: 1600px;margin-left: -180px; background-color:white">
     <p>{{ content }}</p>
+    <app-afficher-dimensionnement></app-afficher-dimensionnement>
   </header>
 </div>
+-->
+<div class="container">
+  <!-- Links -->
+
+  <nav id="sidebar">
+    <div class="list-unstyled components" style="margin-left:40px;">
+      <br>
+      <img src="../../../assets/image/mod.png" style="width:400px; margin-top: 40px; margin-left:-90px;">
+      <br> <br>
+      <h4><span style=" margin-top: 60px ; font-size: large;">{{currentUser.username}}</span></h4>
+      <h4><span style=" margin-top: 30px ;  font-size: large;">{{currentUser.email}}</span></h4>
+
+      <br><br><br>
+
+    </div>
+    <ul class="list-unstyled components">
+
+      <li>
+        <a routerLink="/mod/alldimmod"> Tous les dimensionnements </a>
+        <a routerLink="/mod/allpmod"> Tous les profil en long </a>
+
+      </li>
+
+    </ul>
+
+
+  </nav>
+  <br> <br>
+
+  <!-- Page Content Holder -->
+  <div id="content">
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+
+
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Page</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
+
+
+
+
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap Js CDN -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- jQuery Custom Scroller CDN -->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+
+    $('#sidebarCollapse').on('click', function () {
+      $('#sidebar, #content').toggleClass('active');
+      $('.collapse.in').toggleClass('in');
+      $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+  });
+</script>

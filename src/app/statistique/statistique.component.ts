@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color } from 'ng2-charts';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Statistique } from '../models/statistique';
@@ -7,7 +7,9 @@ import { ProfilenlongService } from '../services/profilenlong.service';
 import { Dimensionnement } from '../models/Dimensionnement';
 import { HttpClient } from '@angular/common/http';
 import { DimcalculService } from '../services/dimcalcul.service';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-statistique',
@@ -15,6 +17,11 @@ import { DimcalculService } from '../services/dimcalcul.service';
   styleUrls: ['./statistique.component.css']
 })
 export class StatistiqueComponent implements OnInit {
+  @ViewChild('htmlData') htmlData:ElementRef;
+  @ViewChild('htmlData1') htmlData1:ElementRef;
+  @ViewChild('htmlData2') htmlData2:ElementRef;
+  @ViewChild('htmlData3') htmlData3:ElementRef;
+  
   list:any []
   list1:any[]
   list2:any[]
@@ -163,6 +170,7 @@ this.dimcal.primaireYn().subscribe (data => {
   this.list2=data;
   console.log(this.list2)
   this.lineChartData1[1]=({ data: this.list2, label: 'Yn Primaire' });
+
 });
 
 //statutstatCoteProjetPrimaire()
@@ -257,25 +265,48 @@ this.ps.statutstatCoteAmontTertiaire().subscribe (data => {
 }
 
 
+///////////////////////////////
+ /* 
+  public lineChartData1: ChartDataSets[]
+    = [
+    
+    { data: [0,0, 0, 0, 0, 0], label: '' },
+  ];
+  public lineChartLabels1: Array<any> = [];
+  public lineChartOptions1: any = {
+    responsive: true
+  };
+
+  lineChartColors1: Array<any> = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,255,0,0.28)',
+    },
+  
+  ];
+  public lineChartLegend1: boolean = true;
+  public lineChartType1: string = 'line';
+
+*/
 
 
   /////////////////////////////////////////////
   ////
-  lineChartData1: ChartDataSets[] = [
+  public lineChartData1: ChartDataSets[] =  [
     
     { data: [0,0, 0, 0, 0, 0], label: '' },
   ];
  
-  lineChartLabels1: Label[] = [];
+  lineChartLabels1: Array<any> =[];
 
-  lineChartOptions1 = {
+  public lineChartOptions1 =   {
     responsive: true,
   };
  
-  lineChartColors1: Color[] = [
+  lineChartColors1: Array<any> = [
     {
       backgroundColor: 'rgba(105, 0, 132, .2)',
-      borderColor: 'rgba(200, 99, 132, .7)',
+      borderColor: 'rgba(240, 52, 52, 1)',
       borderWidth: 2,
     },
     {
@@ -290,19 +321,20 @@ this.ps.statutstatCoteAmontTertiaire().subscribe (data => {
     }
   ];
 
-
-  lineChartLegend1 = true;
-  lineChartPlugins = [];
-  lineChartType1 = 'line';
-  //stat2
-  lineChartData3: ChartDataSets[] = [
+  public lineChartLegend1: boolean = true;
+  public lineChartPlugins = [];
+ public  lineChartType1 : string = 'line';
+ 
+ 
+ //stat2
+  lineChartData3: ChartDataSets[]= [
     
     { data: [0,0, 0, 0, 0, 0], label: '' },
   ];
  //string amont 
-  lineChartLabels3: Label[] = [];
+  public lineChartLabels3: Array<any>= [];
 
-  lineChartOptions3 = {
+ public  lineChartOptions3 : any = {
     responsive: true,
   };
  
@@ -340,7 +372,7 @@ this.ps.statutstatCoteAmontTertiaire().subscribe (data => {
   lineChartLegend3 = true;
   //stat3
 
-  lineChartData4: ChartDataSets[] = [
+  lineChartData4: ChartDataSets[]= [
     
     { data: [0,0, 0, 0, 0, 0], label: '' },
   ];
@@ -382,5 +414,78 @@ this.ps.statutstatCoteAmontTertiaire().subscribe (data => {
   lineChartLegend4 = true;
   lineChartType4 = 'line';
 
+  //pdf1
+  public openPDF():void {
+    let DATA = document.getElementById('htmlData');
+        
+    html2canvas(DATA).then(canvas => {
+        
+        let fileWidth = 208;
+        let fileHeight = canvas.height * fileWidth / canvas.width;
+        
+        const FILEURI = canvas.toDataURL('image/png')
+        let PDF = new jsPDF('p', 'mm', 'a2');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+        
+        PDF.save('Statistique.pdf');
+    });     
+    }
+//pdf 2
+public openPDF1():void {
+  let DATA = document.getElementById('htmlData1');
+      
+  html2canvas(DATA).then(canvas => {
+      
+      let fileWidth = 208;
+      let fileHeight = canvas.height * fileWidth / canvas.width;
+      
+      const FILEURI = canvas.toDataURL('image/png')
+      let PDF = new jsPDF('p', 'mm', 'a2');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+      
+      PDF.save('Statistique.pdf');
+  });     
+  }
+
+  //pdf3
+  public openPDF2():void {
+    let DATA = document.getElementById('htmlData2');
+        
+    html2canvas(DATA).then(canvas => {
+        
+        let fileWidth = 208;
+        let fileHeight = canvas.height * fileWidth / canvas.width;
+        
+        const FILEURI = canvas.toDataURL('image/png')
+        let PDF = new jsPDF('p', 'mm', 'a2');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+        
+        PDF.save('Statistique.pdf');
+    });     
+    }
+    //pdf 4
+
+    public openPDF3():void {
+      let DATA = document.getElementById('htmlData3');
+          
+      html2canvas(DATA).then(canvas => {
+          
+          let fileWidth = 208;
+          let fileHeight = canvas.height * fileWidth / canvas.width;
+          
+          const FILEURI = canvas.toDataURL('image/png')
+          let PDF = new jsPDF('p', 'mm', 'a2');
+          let position = 0;
+          PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+          
+          PDF.save('Statistique.pdf');
+      });     
+      }
+      //pdf 4
+
+    
 }
 

@@ -18,7 +18,7 @@ export class NoteadminComponent implements OnInit {
 
   showFiller = false;
   public t1: any;
-  currentprod:Note ;
+  public currentprod:Note ;
  isSuccessful = false;
  id: number;
  currentUser: any;

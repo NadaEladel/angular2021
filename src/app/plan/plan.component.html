@@ -112,6 +112,9 @@
         <th pSortableColumn="naval">Adresse
           <p-sortIcon field="naval"></p-sortIcon>
       </th>
+        <th pSortableColumn="naval">Date
+          <p-sortIcon field="naval"></p-sortIcon>
+        </th>
       <th pSortableColumn="hauteurchute">Creer par
         <p-sortIcon field="hauteurchute"></p-sortIcon>
     </th>
@@ -138,6 +141,7 @@
               <td>{{plan.reseaux}}</td>
               <td>{{plan.proprietaire}}</td>
               <td>{{plan.adresse}}</td>
+              <td>{{plan.date}}</td>
              
               <td>{{plan.user.username}}</td>
               <td>{{plan.nom}}
@@ -189,7 +193,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
-                Au total, il y a {{tabs ? tabs.length : 0 }} des profil en long.
+                Au total, il y a {{tabs ? tabs.length : 0 }} des plans.
             </div>
         </ng-template>
     </p-table>
@@ -233,6 +237,7 @@
             <br>
             <input [(ngModel)]="profil.adresse" type="text" pInputText
               class="form-control" [ngModelOptions]="{standalone: true}">
+              
           </div>
 
           <button class="btn btn-success" type="submit">Modifier</button>

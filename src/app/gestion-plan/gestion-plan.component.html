@@ -32,11 +32,20 @@
                   <div class="p-field p-col-12 p-md-6">
                     <label for="firstname6">Adresse</label>
                     <br>
-                    <input  class="form-control" id="add" #descriptions="ngModel" required minlength="3"
+                    
+                    <input  class="form-control"id="add" #descriptions="ngModel" required minlength="3"
                                                         maxlength="2000" matInput name="add" ngModel
                                                         [(ngModel)]="add">
-            
                   </div>
+
+                  <div class="p-field p-col-12 p-md-6">
+                    <label for="firstname6">Date</label>
+                    <br>
+                    <input class="form-control"  type="date" id="date" #descriptions="ngModel" required minlength="3" maxlength="2000" matInput
+                      name="add" ngModel [(ngModel)]="date">
+                  
+                  </div>
+
                   <div class="p-field p-col-12 p-md-6">
                     <label for="firstname6">File</label>
                     <br>

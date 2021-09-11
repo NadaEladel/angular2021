@@ -1,13 +1,17 @@
-<div style="margin-left: 20px; width: 1720px;margin-top: 109px">
 
+<div style="margin-left: 20px; width: 1720px;margin-top: 109px" >
+    
 
-    <div class="widget">
+    <div class="widget" >
         <div class="col-xl-12"></div>
         <div class="col-xl-12" style=" width:1080px;color: dimgray;">
+
+
+            
             <div style="background-color: rgb(100, 148, 237)">
-                <div class="card" style="border: none; background-color:white">
-                    <h2><span style=" margin-left:300px;color:darkcyan;width: 20px">****** Statisque selon la statut du
-                            stage
+                <div>
+                <div class="card" style="border: none; background-color:white" id="htmlData">
+                    <h2><span style=" margin-left:300px;color:darkcyan;width: 20px">****** Statisque selon les canals
                             ****** </span> </h2>
                     <br><br>
                     <canvas baseChart [data]="pieChartData1" [labels]="pieChartLabels1" [chartType]="pieChartType"
@@ -16,25 +20,31 @@
 
                     </canvas>
                 </div>
+                <div class="col-md-4  text-right">
+                    <button class="btn btn-success btn-block" (click)="openPDF()" style="width: 250px">Download PDF</button>
+                </div>
+            
+               </div>
 
-
-                <div style="display:  block; width: 900px;margin-top: -670px;height:600px;margin-left: 900px">
+                <div style="display:  block; width: 900px;margin-top: -670px;height:600px;margin-left: 900px" >
 
                     <div class="widget">
                         <div class="col-xl-12"></div>
                         <div class="col-xl-12" style=" width:900px;color: dimgray;">
                             <div style="background-color: cornflowerblue">
-                                <div class="card" style="border: none; background-color:white">
-                                    <div class="card-body" style="margin-top: 20px;background-color: white">
+                                
+                                <div class="card" style="border: none; background-color:white" >
+                                    <div>
+                                    <div class="card-body" style="margin-top: 20px;background-color: white" id="htmlData1">
                                         <br>
                                         <h2><span
-                                                style=" margin-left:320px;margin-top:500px;color:darkcyan;width: 20px">
+                                                style=" margin-left:320px;margin-top:-500px;color:darkcyan;width: 20px">
                                                 Statisque Primaire
                                                  </span> </h2>
                                         <br><br>
 
                                         <div class="chart-wrapper">
-                                            <canvas baseChart [datasets]="lineChartData1" [labels]="lineChartLabels1"
+                                            <canvas style="margin-top: 50px;color:red" baseChart [datasets]="lineChartData1" [labels]="lineChartLabels1"
                                                 [options]="lineChartOptions1" [colors]="lineChartColors1"
                                                 [legend]="lineChartLegend1" [chartType]="lineChartType1"
                                                 [plugins]="lineChartPlugins">
@@ -43,19 +53,22 @@
 
 
                                     </div>
-
-
-                                    //
-                                    <div class="card-body" style="margin-top: 20px;background-color: white" >
+                                    <div class="col-md-4 text-right">
+                                        <button class="btn btn-success btn-block" (click)="openPDF1()">Download PDF</button>
+                                    </div>
+                                </div>
+                                    <div>
+                                    <div class="card-body" style="background-color: white ;"  id="htmlData2">
                                         <br>
                                         <h2><span
-                                                style=" margin-left:320px;margin-top:500px;color:darkcyan;width: 20px">
+                                                style=" margin-top: 40px; margin-left:-680px;color:darkcyan;width: 20px">
                                                 Statisque Secondaire
                                                  </span> </h2>
                                         <br><br>
+                                       
 
-                                        <div class="chart-wrapper">
-                                            <canvas baseChart [datasets]="lineChartData3" [labels]="lineChartLabels3"
+                                        <div class="chart-wrapper" >
+                                            <canvas style="margin-left: -890px; " baseChart [datasets]="lineChartData3" [labels]="lineChartLabels3"
                                                 [options]="lineChartOptions3" [colors]="lineChartColors3"
                                                 [legend]="lineChartLegend3" [chartType]="lineChartType1"
                                                 [plugins]="lineChartPlugins">
@@ -64,17 +77,24 @@
 
 
                                     </div>
-                                    //
-                                    <div class="card-body" style="margin-top: 20px; background-color: white ;  ">
+
+                                    <div class="col-md-4  text-right ">
+                                        <button class="btn btn-success btn-block" style="margin-left: -890px; margin-top: 5px;" (click)="openPDF2()">Download PDF</button>
+                                    </div>
+                                </div>
+                                    <div  style="margin-top: -630px;">
+                                    <div class="card-body" style="margin-top: 20px; background-color: white ;  " id="htmlData3">
                                         <br>
                                         <h2><span
-                                                style=" margin-left:320px;margin-top:500px;color:darkcyan;width: 20px; ">
+                                               style="margin-top: -1520px; margin-left:320px;color:darkcyan;width: 20px; ">
                                                 Statisque Tertiaire
                                                  </span> </h2>
                                         <br><br>
 
                                         <div class="chart-wrapper">
-                                            <canvas baseChart [datasets]="lineChartData4" [labels]="lineChartLabels4"
+                                          
+                                            <canvas
+                                              baseChart [datasets]="lineChartData4" [labels]="lineChartLabels4"
                                                 [options]="lineChartOptions4" [colors]="lineChartColors4"
                                                 [legend]="lineChartLegend4" [chartType]="lineChartType1"
                                                 [plugins]="lineChartPlugins">
@@ -83,6 +103,10 @@
 
 
                                     </div>
+                                    <div class="col-md-4  text-right">
+                                        <button style="margin-top: -20px;margin-left: 50px;" class="btn btn-success btn-block" (click)="openPDF3()">Download PDF</button>
+                                    </div>
+                                </div>
                                     
                                 </div>
                             </div>

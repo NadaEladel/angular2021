@@ -24,6 +24,7 @@ export class RechercheComponent implements OnInit {
   roles: string[];
   isLoggedIn = false;
   username: string;
+  calcules:any
   // filteredStates: Observable<any>;
   //states: any;
   filteredStates: Observable<State[]>;
@@ -43,11 +44,13 @@ export class RechercheComponent implements OnInit {
   //filteredStates: Observable<State[]>;
 
   name: string;
-  user: Plan;
+  user: any;
 
   onEdit() {
     this.us.findPlanByUsername(this.name).subscribe(data => {
-      this.user = JSON.parse(data);
+    // this.user = JSON.parse(data);
+    this.user =data;
+    
       console.log(data);
     },
       error1 => { console.log(error1); });

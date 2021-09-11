@@ -29,6 +29,10 @@ import { ProfilenlongComponent } from './profilenlong/profilenlong.component';
 import { ConsulterprofilenlongComponent } from './consulterprofilenlong/consulterprofilenlong.component';
 import { StatistiqueComponent } from './statistique/statistique.component';
 import { RechercheComponent } from './recherche/recherche.component';
+import { ConsulterdimmoderateurComponent } from './consulterdimmoderateur/consulterdimmoderateur.component';
+import { ConsulterprofilmodComponent } from './consulterprofilmod/consulterprofilmod.component';
+import { StattestComponent } from './stattest/stattest.component';
+
 //import { UiElementsComponent } from './ui-elements/ui-elements.component';
 
 const routes: Routes = [
@@ -57,7 +61,20 @@ const routes: Routes = [
 
  ]
 },
-  { path: 'mod', component: BoardModeratorComponent },
+  { path: 'mod', component: BoardModeratorComponent,
+    children: [
+      { path: 'alldimmod', 
+      component: ConsulterdimmoderateurComponent
+     },
+
+      { path: 'allpmod', 
+      component: ConsulterprofilmodComponent
+     },
+
+    
+    
+    ]
+},
   {
     path: 'admin', component: BoardAdminComponent,
     children: [
@@ -68,6 +85,10 @@ const routes: Routes = [
       {
         path: 'noteadmin',
         component: NoteadminComponent
+      },
+      {
+        path: 'state',
+        component: StattestComponent
       },
       {
         path: 'stat',
@@ -125,7 +146,9 @@ const routes: Routes = [
   { path: 'plan', component: GestionPlanComponent },
   {path:'plan1',component:PlanComponent},
   {path:'prl',component:ProfilenlongComponent},
- 
+  { path: 'alldimmod', component: ConsulterdimmoderateurComponent },
+  { path: 'allpmod', component: ConsulterprofilmodComponent },
+
   {
     path: 'ajoutnote',
     component: AjoutnoteComponent

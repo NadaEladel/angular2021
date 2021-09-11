@@ -1,4 +1,4 @@
-<div class="card" style="margin-left: 10px; width: 1520px;margin-top: 240px">
+<div class="card" style="margin-left: 10px; width: 2000px;margin-top: -50px">
     <form class="example-form" name="form" (ngSubmit)="f.form.valid && onEdit()" #f="ngForm" novalidate>
 
 
@@ -13,7 +13,7 @@
 
 
                         <mat-form-field class="example-full-width">
-                            <mat-label>StaACCCAgiaire</mat-label>
+                            <mat-label>User</mat-label>
                             <input matInput id="descriptions" required name="description" ngModel [(ngModel)]="name"
                                 aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
                             <mat-autocomplete #auto="matAutocomplete">
@@ -37,15 +37,77 @@
     <div class="container">
 
 
-        <div class="panel-body" *ngIf="user" style="height: 1500px">
+        <div class="panel-body" *ngIf="user" style="width: 1200px">
             <!-- <img src="../../../assets/image/wx.jpg" style="width: 970px;margin-left:28px;height:140px;">-->
             <br><br><br>
-            <h3>utilisateur :&nbsp;&nbsp;&nbsp; {{user?.username}}</h3>
+            <h3>Utilisateur :&nbsp;&nbsp;&nbsp; {{user[0].user.username}}</h3>
             <br>
-            <h3>id :&nbsp;&nbsp;&nbsp; {{user.idPlan}}</h3>
+            <h3>Email :&nbsp;&nbsp;&nbsp; {{user[0].user.email}}</h3>
             <br>
-            <h3>adresse :&nbsp;&nbsp;&nbsp;{{user.adresse}}</h3>
+            <h3>Role :&nbsp;&nbsp;&nbsp;{{user[0].user.roles[0].name}}</h3>
             <br>
+            <p-table #dt [value]="user" [rows]="10" [paginator]="true"
+            [globalFilterFields]="['id_note','description','notescanner','usernote','type','date','objet']"
+            [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between ">
+                    <span class="p-input-icon-left ">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Rechercher..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                 
+                  <th pSortableColumn="description">Proprietaire
+                        <p-sortIcon field="description"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="notescanner"> Reseaux
+                        <p-sortIcon field="notescanner"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="email">Adresse
+                        <p-sortIcon field="email"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="type">Date
+                        <p-sortIcon field="type"></p-sortIcon>
+                    </th>
+                    
+                    <th pSortableColumn="objet">User
+                        <p-sortIcon field="objet"></p-sortIcon>
+                    </th>
+                   
+                
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-s>
+                <tr>
+                    <td>{{s.proprietaire}}</td>
+                    <td>{{s.reseaux}}</td>
+                    <td>{{s.adresse}}</td>
+                    
+                    
+                    <td>{{s.date}}</td>
+                    
+                    
+                    <td>{{s.user?.username}}</td>
+
+                    
+                     </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    Au total, il y a {{user? user.length : 0 }} plan(s).
+                </div>
+            </ng-template>
+        </p-table>
+
+
+      
 
         </div>
     </div>

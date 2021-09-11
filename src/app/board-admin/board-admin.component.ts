@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../_services/token-storage.service';
@@ -31,6 +32,7 @@ export class BoardAdminComponent implements OnInit {
       this.id = user.id;
     }
     this.currentUser = this.token.getUser();
+     this.router.navigate(['/admin/stat']);
 
   }
 

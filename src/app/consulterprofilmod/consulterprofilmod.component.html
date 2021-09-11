@@ -1,5 +1,4 @@
-<app-board-user></app-board-user>
-
+<app-board-moderator></app-board-moderator>
 
 <div class="card" style="margin-left: -155px; width: 1716px;margin-top: -1857px">
 
@@ -77,61 +76,61 @@
                 <td>{{s.namont}}</td>
                 <td>{{s.naval}}</td>
 
-                <td>{{s.hauteurdechutetotal}}</td>
-                <td>{{s.coteprojetamont}}</td>
-                <td>{{s.coteprojetaval}}</td>
-                <td>{{s.profondeur}}</td>
-                <td>{{s.pertedechargelineaire}}</td>
+                                <td>{{s.hauteurdechutetotal}}</td>
+                    <td>{{s.coteprojetamont}}</td>
+                    <td>{{s.coteprojetaval}}</td>
+             <td>{{s.profondeur}}</td>
+                                    <td>{{s.pertedechargelineaire}}</td>
 
-                <td>{{s.pertedechargesinguliaire}}</td>
-                <td>{{s.coteplushauteeauamont}}</td>
-                <td>{{s.coteplushauteeauaval}}</td>
+                    <td>{{s.pertedechargesinguliaire}}</td>
+                    <td>{{s.coteplushauteeauamont}}</td>
+                    <td>{{s.coteplushauteeauaval}}</td>
 
-
+                
                 <td>
 
 
 
 
                     <button pButton pRipple (click)="showDialog(profilenlong)"
-                        style="color: rgb(78, 77, 77) ; background-color: rgba(37, 105, 231, 0.89); border:beige;"
+style="background-color: rgb(13, 125, 177) ; border: beige; ;color: rgb(255, 255, 255); "           
                         label="Voir plus" icon="pi pi-plus"></button>
                     <p-dialog header="Détail" [style]="{width: '600px'}" [(visible)]="display">
                         <p-accordion>
                             <p-accordionTab header="hauteurchute">
-                <td>{{s.hauteurchute}}</td>
+                                                <td>{{s.hauteurchute}}</td>
 
                 </p-accordionTab>
                 <p-accordionTab header="nombredechute">
-                    <td>{{s.nombredechute}}</td>
+                                    <td>{{s.nombredechute}}</td>
 
                 </p-accordionTab>
                 <p-accordionTab header="chute">
-                    <td>{{s.chute}}</td>
+                                    <td>{{s.chute}}</td>
 
                 </p-accordionTab>
                 <p-accordionTab header="longueur">
-                    <td>{{s.longueur}}</td>
+                                    <td>{{s.longueur}}</td>
 
                 </p-accordionTab>
 
                 <p-accordionTab header="cotetnamont">
-                    <td>{{s.cotetnamont}}</td>
+                                    <td>{{s.cotetnamont}}</td>
 
                 </p-accordionTab>
 
                 <p-accordionTab header="cotetnaval">
-                    <td>{{s.cotetnaval}}</td>
+                                    <td>{{s.cotetnaval}}</td>
 
                 </p-accordionTab>
 
                 <p-accordionTab header="coeficient">
-                    <td>{{s.coeficient}}</td>
+                                    <td>{{s.coeficient}}</td>
 
                 </p-accordionTab>
 
                 <p-accordionTab header="acceleration">
-                    <td>{{s.acceleration}}</td>
+                                    <td>{{s.acceleration}}</td>
 
                 </p-accordionTab>
 

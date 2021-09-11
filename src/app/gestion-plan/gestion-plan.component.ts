@@ -53,7 +53,7 @@ currentUser:any;
     }
 
     this.currentUser = this.token.getUser();
-    this.getdata();
+
     }
     
 
@@ -77,6 +77,8 @@ currentUser:any;
       }
 
       this.isSuccessful = true;
+      this.getdata();
+
 
     },
       err => {
@@ -85,6 +87,7 @@ currentUser:any;
         this.currentFile = undefined;
       });
     this.selectedFiles = undefined;
+ 
   }
 
   // latest snapshot
@@ -110,6 +113,7 @@ currentUser:any;
 
 
     }
+
   }
 
   showBasicDialog() {
@@ -131,6 +135,7 @@ currentUser:any;
         this.plans = data;
         console.log(this.plans);
       }, error => this.errorMessage = <any>error);
+
   }
   
   
@@ -170,4 +175,6 @@ currentUser:any;
       console.log(error);
     });
   }
+
+  
 }

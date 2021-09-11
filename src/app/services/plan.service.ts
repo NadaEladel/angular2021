@@ -55,7 +55,7 @@ update(id, data): Observable<any> {
 
   findPlanByUsername(username): Observable<any> {
 
-    return this.httpClient.get(this.host + 'getP/' + username, { responseType: 'text' });
+    return this.httpClient.get(this.host + 'getP/' + username);
   }
 
 }
