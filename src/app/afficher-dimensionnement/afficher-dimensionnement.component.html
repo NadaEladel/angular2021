@@ -20,7 +20,6 @@
     
     <a mat-list-item routerLink="/admin/noteadmin">Affichage de note </a>
     <a mat-list-item routerLink="/admin/plan1">Gestion des plans </a>
-    <a mat-list-item routerLink="/admin/stat">Statistique</a>
     <a mat-list-item routerLink="/admin/recherche">Rechercher</a>
 
 
@@ -507,15 +506,22 @@
   </p-dialog>
 -->
 <p-dialog header="modifier dimensionnement " [(visible)]="display1" [style]="{width: '50vw'}" [baseZIndex]="10000">
+ 
+
+ 
   <div class="container">
 
     <div class="panel panel-default">
+      
 
       <div class="panel-body" *ngIf="dim">
         <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onupdateprod(f.value)" #f="ngForm"
           novalidate>
 
-<div class="p-field p-col-12 p-md-6">
+<div class="p-grid">
+
+<div class="p-col-6">
+
   <label for="bday">Canals</label>
   <br>
  <!--  <select formControlName="canals" (change)="selected()" placeholder="Canals..." type="text" class="form-control">
@@ -534,82 +540,90 @@
             </select>
 
 </div>
-          <div class="p-field p-col-12 p-md-6">
+
+
+
+
+          <div class=" p-col-6">
             <label for="bday">namont</label>
             <br>
+            
             <input [(ngModel)]="dim.namont" class="form-control" type="text" class="form-control"
               [ngModelOptions]="{standalone: true}">
 
           </div>
-          <div class="p-field p-col-12 p-md-6">
+
+
+          <div class="p-col-6">
+
             <label for="bday">naval</label>
             <br>
             <input [(ngModel)]="dim.naval" class="form-control" type="text" class="form-control"
               [ngModelOptions]="{standalone: true}">
-
           </div>
 
-          <div class="p-field p-col-12 p-md-6">
+
+          <div class="p-col-6">
             <label for="firstname6">debitunitaire:</label>
             <br>
             <input [(ngModel)]="dim.debitunitaire" type="number" pInputText class="form-control"
               [ngModelOptions]="{standalone: true}">
           </div>
-
-          <div class="p-field p-col-12 p-md-6">
+          <div class=" p-col-6">
             <label for="firstname6">surface:</label>
             <br>
             <input [(ngModel)]="dim.surface" type="number" pInputText class="form-control"
               [ngModelOptions]="{standalone: true}">
           </div>
          
-          <div class="p-field p-col-12 p-md-6">
+          <div class="p-col-6">
             <label for="firstname6">largeur de canal:</label>
             <br>
             <input [(ngModel)]="dim.largeurdecanal" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
           </div>
 
-          <div class="p-field p-col-12 p-md-6">
+          <div class=" p-col-6">
             <label for="firstname6">Coefmanning:</label>
             <br>
             <input [(ngModel)]="dim.coefmanning" type="number" pInputText class="form-control"
               [ngModelOptions]="{standalone: true}">
           </div>
 
-          <div class="p-field p-col-12 p-md-6">
+          <div class="p-col-6">
             <label for="firstname6">Pente:</label>
             <br>
             <input [(ngModel)]="dim.pente" type="number" pInputText class="form-control"
               [ngModelOptions]="{standalone: true}">
           </div>
 
-          <div class="p-field p-col-12 p-md-6">
+          <div class="p-col-6">
             <label for="firstname6">Talus:</label>
             <br>
             <input [(ngModel)]="dim.talus" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
           </div>
 
-           <div class="p-field p-col-12 p-md-6">
+           <div class="p-col-6">
             <label for="firstname6">Y0:</label>
             <br>
             <input [(ngModel)]="dim.y0" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
           </div>
 
-          <div class="p-field p-col-12 p-md-6">
+          <div class="p-col-6">
             <label for="firstname6">Revanche:</label>
             <br>
             <input [(ngModel)]="dim.revanche" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
           </div>
 
-          <div class="p-field p-col-12 p-md-6">
+          <div class="p-col-6">
             <label for="firstname6">Base de canal:</label>
             <br>
             <input [(ngModel)]="dim.b" type="number" pInputText class="form-control" [ngModelOptions]="{standalone: true}">
           </div>
 
+</div>
+<br>
 
-
-          <button class="btn btn-success" type="submit">Modifier</button>
+          <button class="btn btn-success" style="margin-left: 420px;" type="submit">Modifier</button>
 
 
 
@@ -889,7 +903,7 @@
                   d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
               </svg>
               </button>&nbsp; &ensp; &ensp;&ensp;
-              <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige; ; color: rgb(255, 255, 255); width: 100px;"    (click)="calculerVitesse(calcule.id)">Vitesse
+              <button class="btn btn-success" style="background-color: rgb(13, 125, 177) ; border: beige ; color: rgb(255, 255, 255); width: 100px;"    (click)="calculerVitesse(calcule.id)">Vitesse
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator"
                 viewBox="0 0 16 16">
                 <path

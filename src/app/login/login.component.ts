@@ -51,7 +51,17 @@ export class LoginComponent implements OnInit {
   }
 
   reloadPage(): void {
-    window.location.reload();
+   // window.location.reload();
+    if (this.roles.includes('ROLE_USER')) {
+      this.router.navigate(['user']);
+      //window.location.reload();
+    }
+    if (this.roles.includes('ROLE_ADMIN')) {
+      this.router.navigate(['admin/stat'])
+    }
+    if (this.roles.includes('ROLE_MODERATOR')) {
+      this.router.navigate(['mod'])
+    }
   }
 
 
@@ -68,4 +78,6 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+
 }

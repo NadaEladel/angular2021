@@ -182,7 +182,7 @@ save() {
   //okk
   onDelete(id): void {
 
-    if (confirm('Voulez-vous vraiment supprimer cette profil en long?')) {
+    if (confirm('Voulez-vous vraiment supprimer cette plan?')) {
           this.planService.delete(id).subscribe(data => {
             this.getdata();
 

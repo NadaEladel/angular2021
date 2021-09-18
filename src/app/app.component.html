@@ -8,7 +8,7 @@
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       
       <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/admin" class="nav-link" routerLink="admin">Board Admin</a>
+        <a href="/admin/stat" class="nav-link" routerLink="/admin/stat">Board Admin</a>
       </li>
       <li class="nav-item" *ngIf="showModeratorBoard">
         <a href="/mod" class="nav-link" routerLink="mod">Board Moderateur</a>
@@ -23,8 +23,11 @@
         <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
       </li>-->
       <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
+        <a href="/login" class="nav-link" routerLink="login"> <span class="material-icons">
+          login
+        </span> Connexion</a>
       </li>
+     
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">

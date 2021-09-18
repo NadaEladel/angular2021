@@ -187,7 +187,7 @@ this.ps.statutstatCoteAmontPrimaire().subscribe (data => {
   console.log(data);
   this.list4=data;
   console.log(this.list4)
-  this.lineChartData1[2]=({ data: this.list4, label: 'Cote amont primaire' });
+  this.lineChartData1[2]=({ data: this.list4, label: 'Cote tn Primaire' });
 });
 
 //secondaire
@@ -204,7 +204,7 @@ this.ps.statutstatCoteAmontSecondaire().subscribe (data => {
   console.log(data);
   this.list6=data;
   console.log(this.list6)
-  this.lineChartData3[2]=({ data: this.list4, label: 'Cote amont Secondaire' });
+  this.lineChartData3[2]=({ data: this.list4, label: 'Cote tn Secondaire' });
 });
 //tertiaire
 
@@ -221,7 +221,7 @@ this.ps.statutstatCoteAmontTertiaire().subscribe (data => {
   console.log(data);
   this.list8=data;
   console.log(this.list8)
- this.lineChartData4[2]=({ data: this.list8, label: 'Cote amont Tertiare' });
+ this.lineChartData4[2]=({ data: this.list8, label: 'Cote tn Tertiare' });
 });
  //namont Primaire
  this.dimcal.namontPrimaire().subscribe (data => {

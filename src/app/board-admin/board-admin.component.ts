@@ -30,9 +30,10 @@ export class BoardAdminComponent implements OnInit {
       this.roles = user.roles;
       this.username = user.username;
       this.id = user.id;
+
     }
     this.currentUser = this.token.getUser();
-     this.router.navigate(['/admin/stat']);
+   // this.router.navigate(['/admin/stat']);
 
   }
 

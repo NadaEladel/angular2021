@@ -41,8 +41,8 @@
                   <div class="p-field p-col-12 p-md-6">
                     <label for="firstname6">Date</label>
                     <br>
-                    <input class="form-control"  type="date" id="date" #descriptions="ngModel" required minlength="3" maxlength="2000" matInput
-                      name="add" ngModel [(ngModel)]="date">
+                    <input class="form-control"  type="date" id="date"  required minlength="3" maxlength="2000" matInput
+                     >
                   
                   </div>
 
@@ -72,7 +72,7 @@
                 </div>
                 <div style="margin-left: 40%;">
                  <br>  
-                    <button class="btn btn-success" style=" width: 30%;" iconPos="p-ai-center" [disabled]="!selectedFiles" type="submit"
+                    <button class="btn btn-success" routerLinkActive="active" style=" width: 30%;" iconPos="p-ai-center" [disabled]="!selectedFiles" type="submit"
                     color="warn" type="submit">Valider
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg"
                   viewBox="0 0 16 16">

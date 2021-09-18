@@ -68,7 +68,7 @@ currentUser:any;
     this.currentFileUpload = this.selectedFiles.item(0);
  /*    adresse: string, reseaux: string, proprietaire:string, id: number,file: File
     this.planService.rec() */
-    this.planService.rec(this.add,this.obj, this.description , this.id, this.currentFileUpload).subscribe((event: any) => {
+    this.planService.rec(this.add, this.obj, this.description , this.id, this.currentFileUpload).subscribe((event: any) => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);
 
@@ -111,9 +111,8 @@ currentUser:any;
         this.imgURL = reader.result;
       }
 
-
     }
-
+this.getdata
   }
 
   showBasicDialog() {
@@ -135,8 +134,12 @@ currentUser:any;
         this.plans = data;
         console.log(this.plans);
       }, error => this.errorMessage = <any>error);
-
-  }
+  location.reload();
+  //  this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+    //  this.router.navigate(["/plan1"]);
+      //});
+  //  this.router.navigate(['/admin/plan1']);
+    }
   
   
   //edit
@@ -155,7 +158,7 @@ currentUser:any;
     //calling service
     this.up.downloadFile(fl).subscribe(x => {
 
-      const blob = new Blob([x], { type: 'application/pdf' });
+    const blob = new Blob([x], { type: 'application/pdf' });
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(blob);
         return;
@@ -165,10 +168,10 @@ currentUser:any;
       document.body.appendChild(a);
       a.setAttribute('style', 'display: none');
       a.setAttribute('target', 'blank');
-      a.href = data;
+     // a.href = data;
       a.download = fl;
       a.click();
-      window.URL.revokeObjectURL(data);
+      //window.URL.revokeObjectURL(data);
 
     }, error => {
 

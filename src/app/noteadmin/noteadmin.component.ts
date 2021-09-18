@@ -43,8 +43,6 @@ export class NoteadminComponent implements OnInit {
       this.id = user.id;
     }
     this.currentUser = this.token.getUser();
-
-
     this.affiche();
   }
 
@@ -86,17 +84,16 @@ export class NoteadminComponent implements OnInit {
 
     console.log("test")
     console.log(this.idUser)
-    this.us.motif(this.idUser, this.text).
+    this.us.motif(this.id, this.text).
       subscribe((data: any) => {
         if (data instanceof HttpResponse) {
           this.message = data.body.message;
         }
 
        this.us.update(this.currentprod.id_note).subscribe(data => {
-       console.log(data)
+      console.log(data)
         } );
-        this.affiche();
-
+       this.affiche();
         this.ook = true;
 
        
@@ -114,12 +111,12 @@ export class NoteadminComponent implements OnInit {
     //calling service
     this.up.downloadFile(fl).subscribe(x => {
 
-      const blob = new Blob([x], { type: 'application/pdf' });
+    const blob = new Blob([x], { type: 'application/pdf' });
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blob);
+       window.navigator.msSaveOrOpenBlob(blob);
         return;
       }
-      const data = window.URL.createObjectURL(blob);
+     const data = window.URL.createObjectURL(blob);
       var a = document.createElement('a');
       document.body.appendChild(a);
       a.setAttribute('style', 'display: none');

@@ -28,7 +28,7 @@ export class DimcalculService {
   delete(id: number): Observable<any> {
     
     return this.http.delete<Dimcalcul>(this.baseUrl + 'delete/' + id);
-   
+
     
 }
 //getbyid
